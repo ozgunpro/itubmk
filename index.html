@@ -3234,6 +3234,42 @@
                 }
             } else {
                 if (validateMuzisyenStep(muzisyenCurrentStep)) {
+                    // Form verilerini topla
+                    const formData = new FormData(muzisyenForm);
+                    const data = {
+                        fullName: formData.get('fullName'),
+                        phone: formData.get('phone'),
+                        email: formData.get('email'),
+                        ituMail: formData.get('ituMail'),
+                        department: formData.get('department'),
+                        instrument1: formData.get('instrument1'),
+                        video1: formData.get('video1'),
+                        instrument2: formData.get('instrument2') || '',
+                        video2: formData.get('video2') || '',
+                        instrument3: formData.get('instrument3') || '',
+                        video3: formData.get('video3') || '',
+                        teachVolunteer: formData.get('teachVolunteer') || '',
+                        genres: formData.getAll('genres').join(', '),
+                        training: formData.get('training'),
+                        stageExp: formData.get('stageExp'),
+                        noteReading: formData.get('noteReading'),
+                        responsibility: formData.get('responsibility'),
+                        persistence: formData.get('persistence'),
+                        ambition: formData.get('ambition'),
+                        teamwork: formData.get('teamwork'),
+                        socialComfort: formData.get('socialComfort'),
+                        openness: formData.get('openness'),
+                        motivation: formData.get('motivation')
+                    };
+                    
+                    // Google Sheets'e gönder
+                    fetch('https://script.google.com/macros/s/AKfycbxckAhOfmCFmA41PpzVRZSfCga6LXExNfHCLNLF5GWqWZW69i68ntukzGss9hz-t_Bo/exec', {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                    
                     alert('🎸 Müzisyen başvurunuz alındı! Teşekkür ederiz.'); 
                     muzisyenForm.reset(); 
                     muzisyenCurrentStep = 1; 
