@@ -3343,6 +3343,39 @@
                 }
             } else {
                 if (validateVokalStep(vokalCurrentStep)) {
+                    // Form verilerini topla
+                    const formData = new FormData(vokalForm);
+                    const data = {
+                        fullName: formData.get('fullName'),
+                        phone: formData.get('phone'),
+                        email: formData.get('email'),
+                        ituMail: formData.get('ituMail'),
+                        department: formData.get('department'),
+                        video1: formData.get('video1'),
+                        video2: formData.get('video2'),
+                        video3: formData.get('video3'),
+                        teachVolunteer: formData.get('teachVolunteer') || '',
+                        genres: formData.getAll('genres').join(', '),
+                        training: formData.get('training'),
+                        stageExp: formData.get('stageExp'),
+                        noteReading: formData.get('noteReading'),
+                        responsibility: formData.get('responsibility'),
+                        persistence: formData.get('persistence'),
+                        ambition: formData.get('ambition'),
+                        teamwork: formData.get('teamwork'),
+                        socialComfort: formData.get('socialComfort'),
+                        openness: formData.get('openness'),
+                        motivation: formData.get('motivation')
+                    };
+                    
+                    // Google Sheets'e gönder
+                    fetch('https://script.google.com/macros/s/AKfycbxGWZV3DFE-ZgnF3NSyIbfR13kqWZMy9n0yDHqjkbg0ONHVMZ_qbhXKNc0_ijbYm0Br/exec', {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                    
                     alert('🎤 Vokal başvurunuz alındı! Teşekkür ederiz.'); 
                     vokalForm.reset(); 
                     vokalCurrentStep = 1; 
