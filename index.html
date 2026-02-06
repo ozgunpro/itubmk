@@ -30,6 +30,7 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
         body {
@@ -136,7 +137,7 @@
 
         .nav-cta {
             background: var(--gradient-main);
-            color: white;
+            color: white !important;
             padding: 0.75rem 1.5rem;
             border-radius: 100px;
             text-decoration: none;
@@ -144,6 +145,10 @@
             font-size: 0.9rem;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(232, 106, 106, 0.3);
+        }
+
+        .nav-cta::after {
+            display: none;
         }
 
         .nav-cta:hover {
@@ -1291,6 +1296,27 @@
             font-weight: 600;
         }
 
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .info-item p {
+            margin: 0;
+        }
+
+        .info-icon {
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .submit-reminder {
+            font-weight: 600;
+            color: var(--accent-coral);
+            margin-top: 1rem;
+        }
+
         /* Form Elements */
         .form-row {
             display: grid;
@@ -1718,8 +1744,8 @@
 
         @media (max-width: 768px) {
             .spotify-embed {
-                width: 280px;
-                right: -10px;
+                width: min(280px, calc(100vw - 32px));
+                right: 10px;
             }
         }
 
@@ -1819,7 +1845,7 @@
             .form-group.full { grid-column: span 1; }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .nav-menu {
                 display: none;
                 position: absolute;
@@ -1835,6 +1861,9 @@
             }
             .nav-menu.active { display: flex; }
             .mobile-toggle { display: flex; }
+        }
+
+        @media (max-width: 768px) {
             .bento-grid { grid-template-columns: 1fr; }
             .bento-card.span-2 { grid-column: span 1; }
             .events-grid, .groups-grid { grid-template-columns: 1fr; }
@@ -1867,8 +1896,8 @@
                 <li><a href="#yonetim">Yönetim</a></li>
                 <li><a href="#katil">Başvuru</a></li>
                 <li><a href="#iletisim">İletişim</a></li>
+                <li><a href="#katil" class="nav-cta">Bize Katıl</a></li>
             </ul>
-            <a href="#katil" class="nav-cta">Bize Katıl</a>
             <button class="mobile-toggle" id="mobileToggle" aria-label="Menü">
                 <span></span><span></span><span></span>
             </button>
@@ -2047,7 +2076,7 @@
                 <div class="instagram-embed">
                     <iframe src="https://www.instagram.com/p/DBWZ03gswIK/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
                 </div>
-                <a href="https://www.instagram.com/itubmk/" target="_blank" class="instagram-more">
+                <a href="https://www.instagram.com/itubmk/" target="_blank" rel="noopener noreferrer" class="instagram-more">
                     <div class="more-content">
                         <svg class="instagram-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="url(#instagram-gradient)"/>
@@ -2282,7 +2311,7 @@
                     <div class="application-header">
                         <h2>🎸 2026 Bahar Dönemi Müzisyen Seçmeleri Başvuru Formu</h2>
                         <p>Bu form Batı Müziği Kulübü'nde klasik müzik veya popüler müzik ekiplerinde müzisyen olarak yer almak isteyenlerin doldurması gereken formdur. 2025-2026 Bahar Dönemi için geçerlidir.</p>
-                        <p style="margin-top: 1rem;">WhatsApp duyuru grubumuz için <a href="https://chat.whatsapp.com/IDWoQiUygIlAScxgggdvQ2?mode=gi_t" target="_blank">tıklayın</a></p>
+                        <p style="margin-top: 1rem;">WhatsApp duyuru grubumuz için <a href="https://chat.whatsapp.com/IDWoQiUygIlAScxgggdvQ2?mode=gi_t" target="_blank" rel="noopener noreferrer">tıklayın</a></p>
                     </div>
 
                     <div class="progress-steps">
@@ -2306,7 +2335,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Telefon Numarası <span class="required">*</span></label>
-                                    <input type="tel" name="phone" required placeholder="05XX XXX XX XX">
+                                    <input type="tel" name="phone" required placeholder="05XX XXX XX XX" inputmode="tel" pattern="^0?\s*5\d{2}[\s-]*\d{3}[\s-]*\d{2}[\s-]*\d{2}$" title="Telefon numarası 05xx xxx xx xx formatında olmalı (0 ile veya olmadan).">
                                     <small>Size geri dönüş yapabilmemiz adına buna ihtiyacımız var.</small>
                                 </div>
                             </div>
@@ -2318,7 +2347,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>İTÜ-Mail Adresiniz <span class="required">*</span></label>
-                                    <input type="email" name="ituMail" required placeholder="isim.soyisim@itu.edu.tr">
+                                    <input type="email" name="ituMail" required placeholder="isim.soyisim@itu.edu.tr" pattern="^[^\\s@]+@itu\\.edu\\.tr$" title="Lütfen @itu.edu.tr uzantılı e-posta girin.">
+                                    <small>Sadece @itu.edu.tr uzantılı e-posta kabul edilir.</small>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -2413,7 +2443,46 @@
                                     <li>Canlı performans videosunu paylaşmadığınız enstrüman için değerlendirilmeyeceksiniz!</li>
                                     <li>Kriterlere uymayan videolar dikkate alınmayacaktır.</li>
                                 </ul>
-                                <p style="margin-top: 0.75rem;">Video kriterlerine <a href="https://itubmk.org/uyelik/bilgilendirme/muzisyen-video-kriterleri" target="_blank">bu linkten</a> ulaşabilirsiniz.</p>
+                            </div>
+                            
+                            <div class="info-box">
+                                <h4>🎬 Video Kriterleri</h4>
+                                <p>Lütfen başvuru videonuzu yollamadan önce videonuzun aşağıdaki kriterleri karşıladığından emin olunuz.</p>
+                                <p><strong>Kısaca:</strong> Çektiğiniz videoda enstrümanınızın ve sizin net olarak görülebilir ve duyulabilir halde olması gerekmektedir.</p>
+                                <ul>
+                                    <li>En az bir tane enstrüman için video yollamalısınız.</li>
+                                    <li>En fazla üç enstrüman için video yollayabilirsiniz.</li>
+                                    <li>Her enstrüman için sadece bir video yollanmalıdır.</li>
+                                    <li>Videonuzun uzunluğu 5 dakikayı aşmamalıdır.</li>
+                                    <li>Videonuz yeteneklerinizi, çalabildiklerinizi açıkça göstermelidir.</li>
+                                    <li>Videonuzda istediğiniz kadar parçadan kısımlar çalabilir, improvizasyon ve sololara yer verebilirsiniz.</li>
+                                    <li>Videonuz YouTube’a yüklenmeli ve link olarak yollanmalıdır. Videonuzun YouTube’da herkese açık olmasına gerek yoktur; “liste dışı” olarak yükleyebilirsiniz.
+                                        <div>
+                                            <a href="https://support.google.com/youtube/answer/57407?co=GENIE.Platform%3DDesktop&hl=tr" target="_blank" rel="noopener noreferrer">YouTube’a nasıl video yüklerim?</a>
+                                        </div>
+                                    </li>
+                                    <li>Drive vb. başka linkler kabul edilmez; videonuz değerlendirmeye alınmaz.</li>
+                                    <li>Videonuzda enstrümanın ve icracının önem arz eden yerleri görünmelidir.
+                                        <ul>
+                                            <li>Örneğin flüt çalıyorsanız, flütün tamamı ve vücudunuzun belden yukarısı görünmelidir.</li>
+                                            <li>Örneğin gitar çalıyorsanız, gitarın tamamı, elleriniz ve vücudunuzun belden yukarısı görünmelidir.</li>
+                                            <li>Örneğin arp çalıyorsanız, arpın tamamı ve vücudunuzun tamamı görünmelidir.
+                                                <ul>
+                                                    <li><strong>İstisna:</strong> Piyanoda ayakları çekmek zor olabilir; bu yüzden klavye, eller ve vücudun belden yukarısı görünebilir. İmkan varsa piyanonun ve icracının tamamını çekiniz.</li>
+                                                    <li><strong>İstisna:</strong> Davulda ellerin rahatça görülmesi yeterlidir. İmkanı olanların video düzenleme ile ayak çekimini videonun bir köşesine eklemesi güzel olur.</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>Videoda çalanın siz olduğundan emin olmamız için yüzünüz görünmelidir.</li>
+                                    <li>Enstrümanı çalarken iki elinizin de ne yaptığının anlaşılır şekilde görülmesi gerekmektedir.</li>
+                                    <li>Videolar yatay çekilmelidir.</li>
+                                    <li>Kamera açısı icracının hareketlerini algılamada zorluk çıkarmamalıdır.</li>
+                                    <li>Kamera sabit olmalıdır veya çeken kişi tarafından elde sabit tutulmalıdır.</li>
+                                    <li>Videodaki boş kısımları video düzenleme programlarıyla aradan kesmenizde sakınca yoktur.</li>
+                                    <li>Videonuzun görüntü ve ses kalitesine önem veriniz; 720p çözünürlüğün altında kayıt yapmamaya özen gösteriniz.</li>
+                                </ul>
+                                <p><strong>Tüm bu kriterler, bize anlaşılır ve doğru bir video yollamanız içindir. Anlaşılmaz, yanlış çekilmiş videolar değerlendirmeye alınmayacaktır.</strong></p>
                             </div>
                         </div>
 
@@ -2640,7 +2709,7 @@
                             <div class="info-box">
                                 <h4>📸 Bizi Takip Edin</h4>
                                 <p>Gelişmelerden haberdar olmak için kulübümüzün Instagram hesabını takip etmenizi tavsiye ederiz.</p>
-                                <p style="margin-top: 0.5rem;"><a href="https://www.instagram.com/itubmk" target="_blank">@itubmk</a></p>
+                                <p style="margin-top: 0.5rem;"><a href="https://www.instagram.com/itubmk" target="_blank" rel="noopener noreferrer">@itubmk</a></p>
                             </div>
 
                             <div class="info-box">
@@ -2653,6 +2722,8 @@
                                 <h4 style="color: #8a9a30;">🔒 Gizlilik</h4>
                                 <p>Verdiğiniz bütün bilgiler tarafımızca saklı tutulmaktadır.</p>
                             </div>
+
+                            <p class="submit-reminder">⚠️ Başvuruyu tamamlamak için "Gönder" butonuna basmayı unutmayın.</p>
                         </div>
 
                         <div class="form-nav">
@@ -2670,7 +2741,7 @@
                     <div class="application-header">
                         <h2>🎤 2026 Bahar Dönemi Vokal Seçmeleri Başvuru Formu</h2>
                         <p>Bu form Batı Müziği Kulübü'nde vokal olarak yer almak isteyenlerin doldurması gereken formdur. 2025-2026 Bahar Dönemi için geçerlidir.</p>
-                        <p style="margin-top: 1rem;">WhatsApp duyuru grubumuz için <a href="https://chat.whatsapp.com/IDWoQiUygIlAScxgggdvQ2?mode=gi_t" target="_blank">tıklayın</a></p>
+                        <p style="margin-top: 1rem;">WhatsApp duyuru grubumuz için <a href="https://chat.whatsapp.com/IDWoQiUygIlAScxgggdvQ2?mode=gi_t" target="_blank" rel="noopener noreferrer">tıklayın</a></p>
                     </div>
 
                     <div class="progress-steps" id="vokalProgressSteps">
@@ -2695,7 +2766,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Telefon Numarası <span class="required">*</span></label>
-                                    <input type="tel" name="phone" required placeholder="05XX XXX XX XX">
+                                    <input type="tel" name="phone" required placeholder="05XX XXX XX XX" inputmode="tel" pattern="^0?\s*5\d{2}[\s-]*\d{3}[\s-]*\d{2}[\s-]*\d{2}$" title="Telefon numarası 05xx xxx xx xx formatında olmalı (0 ile veya olmadan).">
                                     <small>Size geri dönüş yapabilmemiz adına buna ihtiyacımız var.</small>
                                 </div>
                             </div>
@@ -2707,7 +2778,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>İTÜ-Mail Adresiniz <span class="required">*</span></label>
-                                    <input type="email" name="ituMail" required placeholder="isim.soyisim@itu.edu.tr">
+                                    <input type="email" name="ituMail" required placeholder="isim.soyisim@itu.edu.tr" pattern="^[^\\s@]+@itu\\.edu\\.tr$" title="Lütfen @itu.edu.tr uzantılı e-posta girin.">
+                                    <small>Sadece @itu.edu.tr uzantılı e-posta kabul edilir.</small>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -2795,8 +2867,34 @@
                                 </div>
                                 <div class="info-item warning">
                                     <span class="info-icon">⚠️</span>
-                                    <p>Kriterlere uymayan videolar dikkate alınmayacaktır. Video kriterlerine <a href="https://itubatimuzigi.wordpress.com/vokal-secmeleri/" target="_blank">bu linkten</a> ulaşabilirsiniz.</p>
+                                    <p>Kriterlere uymayan videolar dikkate alınmayacaktır.</p>
                                 </div>
+                            </div>
+                            
+                            <div class="info-box">
+                                <h4>🎬 Video Kriterleri</h4>
+                                <p>Lütfen başvuru videonuzu yollamadan önce videonuzun aşağıdaki kriterleri karşıladığından emin olunuz.</p>
+                                <p><strong>Kısaca:</strong> Çektiğiniz videoda net olarak görülebilir ve iyi duyulabilir halde olmanız gerekmektedir.</p>
+                                <ul>
+                                    <li>Biri Türkçe, biri İngilizce, diğeri de istediğiniz herhangi bir dilde olacak üç şarkı videosu çekmelisiniz.</li>
+                                    <li>Videonuzun uzunluğu 5 dakikayı aşmamalıdır.</li>
+                                    <li>Videonuzda arkaya şarkının karaoke versiyonunu açmanız gerekmektedir. Karaoke sesinizi bastırmamalı; sesiniz net ve belirgin olmalıdır.</li>
+                                    <li>Dilerseniz şarkıyı akorlarıyla gitar, piyano vb. bir aletle çalıp/çaldırıp cover şeklinde söyleyebilirsiniz. Her videoda bir şarkı olmalı ve <strong>en az 1.5 dakikalık kayıt</strong> yollanmalıdır.</li>
+                                    <li>Videonuz YouTube’a yüklenmeli ve link olarak yollanmalıdır. Videonuzun YouTube’da herkese açık olmasına gerek yoktur; “liste dışı” olarak yükleyebilirsiniz.
+                                        <div>
+                                            <a href="https://support.google.com/youtube/answer/57407?co=GENIE.Platform%3DDesktop&hl=tr" target="_blank" rel="noopener noreferrer">YouTube’a nasıl video yüklerim?</a>
+                                        </div>
+                                    </li>
+                                    <li>Drive vb. başka linkler kabul edilmez; videonuz değerlendirmeye alınmaz.</li>
+                                    <li>Videonuzda vücudunuzun belden yukarısı görünmelidir. Şarkıyı ayakta veya oturarak okuyabilirsiniz.</li>
+                                    <li>Videoda söyleyenin siz olduğundan emin olmamız için yüzünüz görünmelidir.</li>
+                                    <li>Video yatay veya dikey çekilebilir.</li>
+                                    <li>Kamera açısı icracının hareketlerini algılamada zorluk çıkarmamalıdır.</li>
+                                    <li>Kamera sabit olmalıdır veya çeken kişi tarafından elde sabit tutulmalıdır.</li>
+                                    <li>Videonuzda vokal yeteneğinizi iyi gösterdiğini düşündüğünüz şarkıları tercih ediniz.</li>
+                                    <li>Videonuzun görüntü ve ses kalitesine önem veriniz; 720p çözünürlüğün altında kayıt yapmamaya özen gösteriniz.</li>
+                                </ul>
+                                <p><strong>Tüm bu kriterler, bize anlaşılır ve doğru bir video yollamanız içindir. Anlaşılmaz, yanlış çekilmiş videolar değerlendirmeye alınmayacaktır.</strong></p>
                             </div>
                         </div>
 
@@ -2955,26 +3053,31 @@
 
                         <!-- Step 5: Son -->
                         <div class="form-step" data-step="5">
-                            <h3 class="step-title">✨ Son Olarak</h3>
-                            <div class="final-info">
-                                <div class="info-card">
-                                    <span class="info-emoji">📊</span>
-                                    <p>Video ön elemenin sonuçları yönetim kurulumuzun değerlendirmesinden sonra açıklanacaktır!</p>
-                                </div>
-                                <div class="info-card">
-                                    <span class="info-emoji">📱</span>
-                                    <p>Gelişmelerden haberdar olmak için kulübümüzün <a href="https://www.instagram.com/itubmk" target="_blank">Instagram hesabını</a> takip etmenizi tavsiye ederiz.</p>
-                                </div>
-                                <div class="info-card">
-                                    <span class="info-emoji">🎤</span>
-                                    <p>Eğer video ön elemeyi geçerseniz mülakat için çağırılacaksınız. Mülakat tarihleri Instagram hesabımızdan duyurulacaktır.</p>
-                                </div>
-                                <div class="info-card">
-                                    <span class="info-emoji">🔒</span>
-                                    <p>Verdiğiniz bütün bilgiler tarafımızca saklı tutulmaktadır.</p>
-                                </div>
-                                <p class="submit-reminder">⚠️ "Gönder" butonuna basmayı unutmayın!</p>
+                            <h3 class="step-title">✅ Son Olarak</h3>
+                            <p class="step-desc">Başvurunuzu tamamlamadan önce son bilgiler.</p>
+
+                            <div class="info-box">
+                                <h4>📋 Değerlendirme Süreci</h4>
+                                <p>Video ön elemenin sonuçları yönetim kurulumuzun değerlendirmesinden sonra açıklanacaktır!</p>
                             </div>
+
+                            <div class="info-box">
+                                <h4>📸 Bizi Takip Edin</h4>
+                                <p>Gelişmelerden haberdar olmak için kulübümüzün Instagram hesabını takip etmenizi tavsiye ederiz.</p>
+                                <p style="margin-top: 0.5rem;"><a href="https://www.instagram.com/itubmk" target="_blank" rel="noopener noreferrer">@itubmk</a></p>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>🎤 Mülakat Bilgisi</h4>
+                                <p>Eğer video ön elemeyi geçerseniz mülakat için çağırılacaksınız. Mülakat tarihleri Instagram hesabımızdan duyurulacaktır.</p>
+                            </div>
+
+                            <div class="info-box" style="background: rgba(196, 217, 74, 0.15); border-color: rgba(196, 217, 74, 0.4);">
+                                <h4 style="color: #8a9a30;">🔒 Gizlilik</h4>
+                                <p>Verdiğiniz bütün bilgiler tarafımızca saklı tutulmaktadır.</p>
+                            </div>
+
+                            <p class="submit-reminder">⚠️ Başvuruyu tamamlamak için "Gönder" butonuna basmayı unutmayın.</p>
                         </div>
 
                         <div class="form-nav">
@@ -2999,13 +3102,13 @@
                             <div class="contact-link-icon">✉️</div>
                             <div class="contact-link-text"><strong>E-posta</strong><span>itubmk17@gmail.com</span></div>
                         </a>
-                        <a href="https://www.instagram.com/itubmk/" target="_blank" class="contact-link">
+                        <a href="https://www.instagram.com/itubmk/" target="_blank" rel="noopener noreferrer" class="contact-link">
                             <div class="contact-link-icon">
                                 <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                             </div>
                             <div class="contact-link-text"><strong>Instagram</strong><span>@itubmk</span></div>
                         </a>
-                        <a href="https://www.tiktok.com/@itubmk" target="_blank" class="contact-link">
+                        <a href="https://www.tiktok.com/@itubmk" target="_blank" rel="noopener noreferrer" class="contact-link">
                             <div class="contact-link-icon">
                                 <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
                             </div>
@@ -3088,24 +3191,24 @@
                 <div class="footer-col">
                     <h4>İletişim</h4>
                     <ul>
-                        <li><a href="mailto:itubmk17@gmail.com" target="_blank" class="footer-contact-link"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> itubmk17@gmail.com</a></li>
-                        <li><a href="https://www.instagram.com/itubmk/" target="_blank" class="footer-contact-link"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> @itubmk</a></li>
+                        <li><a href="mailto:itubmk17@gmail.com" target="_blank" rel="noopener noreferrer" class="footer-contact-link"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> itubmk17@gmail.com</a></li>
+                        <li><a href="https://www.instagram.com/itubmk/" target="_blank" rel="noopener noreferrer" class="footer-contact-link"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> @itubmk</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>© 2026 İTÜ Batı Müziği Kulübü. Tüm hakları saklıdır.</p>
                 <div class="social-links">
-                    <a href="https://www.instagram.com/itubmk/" target="_blank" class="social-link" title="Instagram">
+                    <a href="https://www.instagram.com/itubmk/" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                     </a>
-                    <a href="https://www.youtube.com/@itubatimuzigi" target="_blank" class="social-link" title="YouTube">
+                    <a href="https://www.youtube.com/@itubatimuzigi" target="_blank" rel="noopener noreferrer" class="social-link" title="YouTube">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                     </a>
-                    <a href="https://www.tiktok.com/@itubmk" target="_blank" class="social-link" title="TikTok">
+                    <a href="https://www.tiktok.com/@itubmk" target="_blank" rel="noopener noreferrer" class="social-link" title="TikTok">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
                     </a>
-                    <a href="https://open.spotify.com/playlist/5tEm6p7tHkjhLiakpWkCK7?si=d19b9600b42040ad" target="_blank" class="social-link" title="Spotify">
+                    <a href="https://open.spotify.com/playlist/5tEm6p7tHkjhLiakpWkCK7?si=d19b9600b42040ad" target="_blank" rel="noopener noreferrer" class="social-link" title="Spotify">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
                     </a>
                 </div>
@@ -3123,8 +3226,14 @@
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const target = document.querySelector(href);
                 if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
@@ -3166,33 +3275,142 @@
         const muzisyenProgressSteps = document.querySelectorAll('#muzisyenForm .progress-step');
         const muzisyenFormSteps = document.querySelectorAll('#muzisyenForm .form-step');
 
-        function validateMuzisyenStep(step) {
-            const currentStepEl = document.querySelector('#muzisyenForm .form-step[data-step="' + step + '"]');
-            if (!currentStepEl) return true;
-            
+        function isValidEmail(value) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        }
+
+        function isValidPhone(value) {
+            const digits = value.replace(/\D/g, '');
+            return /^0?5\d{9}$/.test(digits);
+        }
+
+        function isValidItuEmail(value) {
+            return /^[^\s@]+@itu\.edu\.tr$/i.test(value);
+        }
+
+        function isValidUrl(value) {
+            const trimmed = value.trim();
+            const hasScheme = /^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(trimmed);
+            const normalized = hasScheme ? trimmed : `https://${trimmed}`;
+            try {
+                const parsed = new URL(normalized);
+                return Boolean(parsed.hostname) && parsed.hostname.includes('.');
+            } catch (error) {
+                return false;
+            }
+        }
+
+        async function submitJson(url, data) {
+            const response = await fetch(url, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+                redirect: 'follow'
+            });
+            if (response.type === 'opaque' || response.type === 'opaqueredirect') {
+                return;
+            }
+            if (!(response.status >= 200 && response.status < 400)) {
+                throw new Error(`Request failed with status ${response.status}`);
+            }
+        }
+
+        function getGroupLabel(groupEl) {
+            if (!groupEl) return '';
+            const label = groupEl.querySelector('label');
+            return label ? label.textContent.replace(/\s*\*\s*/g, '').trim() : '';
+        }
+
+        function getFormatErrorMessage(field) {
+            if (field.type === 'email') {
+                return field.name === 'ituMail'
+                    ? 'İTÜ e-posta adresiniz @itu.edu.tr uzantılı olmalıdır.'
+                    : 'Hatalı e-posta girdiniz.';
+            }
+            if (field.type === 'tel') return 'Hatalı telefon numarası girdiniz. Format: 05xx xxx xx xx (0 ile veya olmadan).';
+            if (field.type === 'url') return 'Hatalı bağlantı girdiniz.';
+            return 'Lütfen giriş formatını kontrol edin.';
+        }
+
+        function validateStep(currentStepEl) {
             const requiredFields = currentStepEl.querySelectorAll('[required]');
             let isValid = true;
-            
+            let firstMessage = '';
+
             requiredFields.forEach(field => {
                 field.classList.remove('error');
-                if (!field.value || field.value.trim() === '') {
+                const value = field.value ? field.value.trim() : '';
+                if (!value) {
                     field.classList.add('error');
                     isValid = false;
+                    if (!firstMessage) {
+                        const label = getGroupLabel(field.closest('.form-group')) || 'Bu alan';
+                        firstMessage = `Lütfen "${label}" alanını doldurun.`;
+                    }
+                    return;
                 }
-                // Check radio buttons
-                if (field.type === 'radio') {
-                    const radioGroup = currentStepEl.querySelectorAll(`input[name="${field.name}"]`);
-                    const isChecked = Array.from(radioGroup).some(r => r.checked);
-                    if (!isChecked) {
-                        isValid = false;
+
+                let formatOk = true;
+                if (field.type === 'email') {
+                    formatOk = field.name === 'ituMail' ? isValidItuEmail(value) : isValidEmail(value);
+                } else if (field.type === 'tel') {
+                    formatOk = isValidPhone(value);
+                } else if (field.type === 'url') {
+                    formatOk = isValidUrl(value);
+                } else if (!field.checkValidity()) {
+                    formatOk = false;
+                }
+
+                if (!formatOk) {
+                    field.classList.add('error');
+                    isValid = false;
+                    if (!firstMessage) {
+                        firstMessage = getFormatErrorMessage(field);
                     }
                 }
             });
-            
-            if (!isValid) {
-                alert('⚠️ Lütfen zorunlu alanları doldurun!');
+
+            const optionalUrlFields = currentStepEl.querySelectorAll('input[type="url"]:not([required])');
+            optionalUrlFields.forEach(field => {
+                field.classList.remove('error');
+                const value = field.value ? field.value.trim() : '';
+                if (!value) return;
+                if (!isValidUrl(value)) {
+                    field.classList.add('error');
+                    isValid = false;
+                    if (!firstMessage) {
+                        firstMessage = getFormatErrorMessage(field);
+                    }
+                }
+            });
+
+            // Check checkbox groups (genres)
+            const genreGroup = currentStepEl.querySelectorAll('input[name="genres"]');
+            if (genreGroup.length > 0) {
+                genreGroup.forEach(input => input.classList.remove('error'));
+                const isChecked = Array.from(genreGroup).some(input => input.checked);
+                if (!isChecked) {
+                    isValid = false;
+                    genreGroup.forEach(input => input.classList.add('error'));
+                    if (!firstMessage) {
+                        const label = getGroupLabel(genreGroup[0].closest('.form-group')) || 'Bu alan';
+                        firstMessage = `Lütfen "${label}" alanında en az bir seçim yapın.`;
+                    }
+                }
             }
+
+            if (!isValid && firstMessage) {
+                alert(`⚠️ ${firstMessage}`);
+            }
+
             return isValid;
+        }
+
+        function validateMuzisyenStep(step) {
+            const currentStepEl = document.querySelector('#muzisyenForm .form-step[data-step="' + step + '"]');
+            if (!currentStepEl) return true;
+            return validateStep(currentStepEl);
         }
 
         function updateMuzisyenForm() {
@@ -3212,7 +3430,7 @@
             if (muzisyenCurrentStep > 1) { muzisyenCurrentStep--; updateMuzisyenForm(); }
         });
 
-        muzisyenNextBtn.addEventListener('click', () => {
+        muzisyenNextBtn.addEventListener('click', async () => {
             if (muzisyenCurrentStep === 2) { // Bilgilendirme sayfası - validasyon yok
                 muzisyenCurrentStep++; updateMuzisyenForm();
             } else if (muzisyenCurrentStep < muzisyenTotalSteps) {
@@ -3249,19 +3467,16 @@
                         motivation: formData.get('motivation')
                     };
                     
-                    // Google Sheets'e gönder
-                    fetch('https://script.google.com/macros/s/AKfycbxckAhOfmCFmA41PpzVRZSfCga6LXExNfHCLNLF5GWqWZW69i68ntukzGss9hz-t_Bo/exec', {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    });
-                    
-                    alert('🎸 Müzisyen başvurunuz alındı! Teşekkür ederiz.'); 
-                    muzisyenForm.reset(); 
-                    muzisyenCurrentStep = 1; 
-                    updateMuzisyenForm(); 
-                    showChoice();
+                    try {
+                        await submitJson('https://script.google.com/macros/s/AKfycbxckAhOfmCFmA41PpzVRZSfCga6LXExNfHCLNLF5GWqWZW69i68ntukzGss9hz-t_Bo/exec', data);
+                        alert('🎸 Müzisyen başvurunuz alındı! Teşekkür ederiz.'); 
+                        muzisyenForm.reset(); 
+                        muzisyenCurrentStep = 1; 
+                        updateMuzisyenForm(); 
+                        showChoice();
+                    } catch (error) {
+                        alert('⚠️ Başvuru gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+                    }
                 }
             }
         });
@@ -3278,30 +3493,7 @@
         function validateVokalStep(step) {
             const currentStepEl = document.querySelector('#vokalForm .form-step[data-step="' + step + '"]');
             if (!currentStepEl) return true;
-            
-            const requiredFields = currentStepEl.querySelectorAll('[required]');
-            let isValid = true;
-            
-            requiredFields.forEach(field => {
-                field.classList.remove('error');
-                if (!field.value || field.value.trim() === '') {
-                    field.classList.add('error');
-                    isValid = false;
-                }
-                // Check radio buttons
-                if (field.type === 'radio') {
-                    const radioGroup = currentStepEl.querySelectorAll(`input[name="${field.name}"]`);
-                    const isChecked = Array.from(radioGroup).some(r => r.checked);
-                    if (!isChecked) {
-                        isValid = false;
-                    }
-                }
-            });
-            
-            if (!isValid) {
-                alert('⚠️ Lütfen zorunlu alanları doldurun!');
-            }
-            return isValid;
+            return validateStep(currentStepEl);
         }
 
         function updateVokalForm() {
@@ -3321,7 +3513,7 @@
             if (vokalCurrentStep > 1) { vokalCurrentStep--; updateVokalForm(); }
         });
 
-        vokalNextBtn.addEventListener('click', () => {
+        vokalNextBtn.addEventListener('click', async () => {
             if (vokalCurrentStep === 2) { // Bilgilendirme sayfası - validasyon yok
                 vokalCurrentStep++; updateVokalForm();
             } else if (vokalCurrentStep < vokalTotalSteps) {
@@ -3355,19 +3547,16 @@
                         motivation: formData.get('motivation')
                     };
                     
-                    // Google Sheets'e gönder
-                    fetch('https://script.google.com/macros/s/AKfycbxGWZV3DFE-ZgnF3NSyIbfR13kqWZMy9n0yDHqjkbg0ONHVMZ_qbhXKNc0_ijbYm0Br/exec', {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    });
-                    
-                    alert('🎤 Vokal başvurunuz alındı! Teşekkür ederiz.'); 
-                    vokalForm.reset(); 
-                    vokalCurrentStep = 1; 
-                    updateVokalForm(); 
-                    showChoice();
+                    try {
+                        await submitJson('https://script.google.com/macros/s/AKfycbxGWZV3DFE-ZgnF3NSyIbfR13kqWZMy9n0yDHqjkbg0ONHVMZ_qbhXKNc0_ijbYm0Br/exec', data);
+                        alert('🎤 Vokal başvurunuz alındı! Teşekkür ederiz.'); 
+                        vokalForm.reset(); 
+                        vokalCurrentStep = 1; 
+                        updateVokalForm(); 
+                        showChoice();
+                    } catch (error) {
+                        alert('⚠️ Başvuru gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+                    }
                 }
             }
         });
@@ -3444,7 +3633,7 @@
             }
         });
         // İletişim Formu
-document.getElementById('contactForm').addEventListener('submit', function(e) {
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
     const formData = new FormData(this);
@@ -3454,15 +3643,13 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
         message: formData.get('message')
     };
     
-    fetch('https://script.google.com/macros/s/AKfycby6JGFf3AnOKEOFXtmpK5bU6mk2XuRwCcr2IaW6m3K-R0vqXxlV4XrRHQQGEbvhd1SKPw/exec', {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    });
-    
-    alert('✉️ Mesajınız gönderildi! En kısa sürede dönüş yapacağız.');
-    this.reset();
+    try {
+        await submitJson('https://script.google.com/macros/s/AKfycby6JGFf3AnOKEOFXtmpK5bU6mk2XuRwCcr2IaW6m3K-R0vqXxlV4XrRHQQGEbvhd1SKPw/exec', data);
+        alert('✉️ Mesajınız gönderildi! En kısa sürede dönüş yapacağız.');
+        this.reset();
+    } catch (error) {
+        alert('⚠️ Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+    }
 });
     </script>
 </body>
