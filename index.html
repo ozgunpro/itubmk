@@ -1344,6 +1344,7 @@
             </div>
             <div class="footer-bottom">
                 <p>© 2026 İTÜ Batı Müziği Kulübü. Tüm hakları saklıdır.</p>
+                <button onclick="acSetlistModal()" class="setlist-footer-btn">🎸 Şarkı Sıralayıcı</button>
                 <div class="social-links">
                     <a href="https://www.instagram.com/itubmk/" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -1812,5 +1813,328 @@ document.getElementById('contactForm').addEventListener('submit', async function
     }
 });
     </script>
+    <!-- PIN Modal -->
+<div id="setlistPinModal" style="display:none;" class="sl-overlay">
+    <div class="sl-pin-box">
+      <button class="sl-close-btn" onclick="kapat('setlistPinModal')">✕</button>
+      <div class="sl-pin-icon">🎸</div>
+      <h2 class="sl-pin-title">Şarkı Sıralayıcı</h2>
+      <p class="sl-pin-sub">Devam etmek için PIN girin</p>
+      <div class="sl-pin-inputs" id="pinInputs">
+        <input class="sl-pin-digit" type="password" maxlength="1" inputmode="numeric">
+        <input class="sl-pin-digit" type="password" maxlength="1" inputmode="numeric">
+        <input class="sl-pin-digit" type="password" maxlength="1" inputmode="numeric">
+        <input class="sl-pin-digit" type="password" maxlength="1" inputmode="numeric">
+      </div>
+      <p class="sl-pin-error" id="pinError"></p>
+    </div>
+  </div>
+  
+  <!-- Setlist Uygulama -->
+  <div id="setlistApp" style="display:none;" class="sl-overlay sl-app-overlay">
+    <div class="sl-app-box">
+      <button class="sl-close-btn" onclick="kapat('setlistApp')">✕</button>
+      <div class="sl-app-header">
+        <span class="sl-app-icon">🎸</span>
+        <div>
+          <h2 class="sl-app-title">Şarkı Sıralayıcı</h2>
+          <p class="sl-app-sub">Konser setlistini otomatik düzenle</p>
+        </div>
+      </div>
+      <div class="sl-form-grid">
+        <div class="sl-col">
+          <div class="sl-card">
+            <label class="sl-label">⏱ Ortalama Şarkı Süresi (dk)</label>
+            <input id="sl-sarki-sure" class="sl-input" type="number" value="6" min="1" max="30">
+          </div>
+          <div class="sl-card">
+            <label class="sl-label">✗ Gelmeyecekler</label>
+            <div id="sl-gelmeyecek-list" class="sl-tag-list"></div>
+            <div class="sl-add-row">
+              <input id="sl-gelmeyecek-input" class="sl-input" type="text" placeholder="İsim girin...">
+              <button class="sl-add-btn" onclick="slEkleGelmeyecek()">+</button>
+            </div>
+          </div>
+          <div class="sl-card">
+            <label class="sl-label">⏰ Geç Gelecekler</label>
+            <div id="sl-gec-list" class="sl-tag-list"></div>
+            <div class="sl-add-row">
+              <input id="sl-gec-isim" class="sl-input" type="text" placeholder="İsim">
+              <input id="sl-gec-dk" class="sl-input sl-input-sm" type="number" placeholder="dk" min="1">
+              <button class="sl-add-btn" onclick="slEkleGec()">+</button>
+            </div>
+          </div>
+          <div class="sl-card">
+            <label class="sl-label">🚪 Erken Gidecekler</label>
+            <div id="sl-erken-list" class="sl-tag-list"></div>
+            <div class="sl-add-row">
+              <input id="sl-erken-isim" class="sl-input" type="text" placeholder="İsim">
+              <input id="sl-erken-dk" class="sl-input sl-input-sm" type="number" placeholder="dk" min="1">
+              <button class="sl-add-btn" onclick="slEkleErken()">+</button>
+            </div>
+          </div>
+          <button class="sl-run-btn" onclick="slCalistir()">
+            <span id="sl-btn-text">🎵 Sırala</span>
+          </button>
+          <p class="sl-error" id="sl-error"></p>
+        </div>
+        <div class="sl-col sl-result-col">
+          <div id="sl-result-wrapper" class="sl-result-wrapper" style="display:none;">
+            <div class="sl-result-header">
+              <span class="sl-label">📋 Setlist</span>
+              <span id="sl-sarki-sayisi" class="sl-result-count"></span>
+            </div>
+            <div class="sl-table-scroll">
+              <table class="sl-table">
+                <thead>
+                  <tr><th>#</th><th>Şarkı</th><th>Puan</th><th>Notlar</th></tr>
+                </thead>
+                <tbody id="sl-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div id="sl-placeholder" class="sl-placeholder">
+            <div class="sl-placeholder-icon">🎼</div>
+            <p>Soldan kişileri girdikten sonra<br>"Sırala" butonuna bas</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script>
+  const SHEET_URL = "https://docs.google.com/spreadsheets/d/1GRzr5KYAYhdZQE0tVPpOHdww8X06Tp95C2XfupvZOhM/export?format=csv&gid=1124187958";
+  const PUANLAR = {
+    "Vokal":200,"Lead Elektro Gitar":200,"Elektro Gitar 2":200,
+    "Gitar 1":200,"Gitar 2":200,"Klavye 1":190,"Klavye 2":190,
+    "Bass Gitar":150,"Davul":250,"Perküsyon":20,"Flüt":150,
+    "Keman":150,"Back Vokal 1":30,"Back Vokal 2":30,"Back Vokal 3":30
+  };
+  const CORRECT_PIN = "1773";
+
+  let slGelmeyecekler = [];
+  let slGecGelenler   = {};
+  let slErkenGidenler = {};
+
+  function acSetlistModal() {
+    document.getElementById('setlistPinModal').style.display = 'flex';
+    document.getElementById('pinError').textContent = '';
+    document.querySelectorAll('.sl-pin-digit').forEach((el, i) => {
+      el.value = '';
+      el.classList.remove('sl-pin-wrong');
+      if (i === 0) setTimeout(() => el.focus(), 100);
+    });
+  }
+
+  function kapat(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const digits = document.querySelectorAll('.sl-pin-digit');
+    digits.forEach((el, i) => {
+      el.addEventListener('input', () => {
+        el.value = el.value.replace(/\D/g,'').slice(-1);
+        if (el.value && i < digits.length - 1) digits[i+1].focus();
+        if ([...digits].every(d => d.value)) dogrulaPIN();
+      });
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !el.value && i > 0) { digits[i-1].focus(); digits[i-1].value=''; }
+      });
+    });
+
+    const gelInput = document.getElementById('sl-gelmeyecek-input');
+    if (gelInput) gelInput.addEventListener('keydown', e => { if(e.key==='Enter') slEkleGelmeyecek(); });
+
+    ['setlistPinModal','setlistApp'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('click', e => { if(e.target === el) kapat(id); });
+    });
+  });
+
+  function dogrulaPIN() {
+    const digits = document.querySelectorAll('.sl-pin-digit');
+    const giris = [...digits].map(d => d.value).join('');
+    if (giris === CORRECT_PIN) {
+      kapat('setlistPinModal');
+      document.getElementById('setlistApp').style.display = 'flex';
+    } else {
+      digits.forEach(d => d.classList.add('sl-pin-wrong'));
+      document.getElementById('pinError').textContent = 'Yanlış PIN.';
+      setTimeout(() => {
+        digits.forEach(d => { d.classList.remove('sl-pin-wrong'); d.value=''; });
+        digits[0].focus();
+        document.getElementById('pinError').textContent = '';
+      }, 900);
+    }
+  }
+
+  function renderTags() {
+    document.getElementById('sl-gelmeyecek-list').innerHTML =
+      slGelmeyecekler.map((isim, i) =>
+        `<span class="sl-tag sl-tag-red">${isim}<button class="sl-tag-remove" onclick="slKaldirGelmeyecek(${i})">✕</button></span>`
+      ).join('');
+    document.getElementById('sl-gec-list').innerHTML =
+      Object.entries(slGecGelenler).map(([isim, dk]) =>
+        `<span class="sl-tag sl-tag-yellow">${isim} (+${dk}dk)<button class="sl-tag-remove" onclick="slKaldirGec('${isim}')">✕</button></span>`
+      ).join('');
+    document.getElementById('sl-erken-list').innerHTML =
+      Object.entries(slErkenGidenler).map(([isim, dk]) =>
+        `<span class="sl-tag sl-tag-blue">${isim} (${dk}dk)<button class="sl-tag-remove" onclick="slKaldirErken('${isim}')">✕</button></span>`
+      ).join('');
+  }
+
+  function slEkleGelmeyecek() {
+    const val = document.getElementById('sl-gelmeyecek-input').value.trim();
+    if (!val || slGelmeyecekler.includes(val)) return;
+    slGelmeyecekler.push(val);
+    document.getElementById('sl-gelmeyecek-input').value = '';
+    renderTags();
+  }
+  function slKaldirGelmeyecek(i) { slGelmeyecekler.splice(i, 1); renderTags(); }
+
+  function slEkleGec() {
+    const isim = document.getElementById('sl-gec-isim').value.trim();
+    const dk = parseInt(document.getElementById('sl-gec-dk').value);
+    if (!isim || !dk || dk < 1) return;
+    slGecGelenler[isim] = dk;
+    document.getElementById('sl-gec-isim').value = '';
+    document.getElementById('sl-gec-dk').value = '';
+    renderTags();
+  }
+  function slKaldirGec(isim) { delete slGecGelenler[isim]; renderTags(); }
+
+  function slEkleErken() {
+    const isim = document.getElementById('sl-erken-isim').value.trim();
+    const dk = parseInt(document.getElementById('sl-erken-dk').value);
+    if (!isim || !dk || dk < 1) return;
+    slErkenGidenler[isim] = dk;
+    document.getElementById('sl-erken-isim').value = '';
+    document.getElementById('sl-erken-dk').value = '';
+    renderTags();
+  }
+  function slKaldirErken(isim) { delete slErkenGidenler[isim]; renderTags(); }
+
+  function kisiVarMi(isim, row) {
+    return Object.values(row).includes(isim);
+  }
+
+  function siralayici(rows, gelmeyen) {
+    const sonuc = rows.map(r => ({ ...r, _puan: 0, _aciklama: [] }));
+    gelmeyen.forEach(isim => {
+      sonuc.forEach(row => {
+        Object.entries(row).forEach(([enstruman, deger]) => {
+          if (PUANLAR[enstruman] !== undefined && deger === isim) {
+            row._puan += PUANLAR[enstruman];
+            row._aciklama.push({ tip: 'red', metin: `${isim} (${enstruman}) gelmeyecek` });
+          }
+        });
+      });
+    });
+    sonuc.sort((a, b) => a._puan - b._puan);
+    return sonuc;
+  }
+
+  function zamanla(siralanmis, gecGelenler, erkenGidenler, sarkiSure) {
+    const liste = [...siralanmis];
+
+    Object.entries(gecGelenler).forEach(([isim, dakika]) => {
+      const enErkenSlot = Math.ceil(dakika / sarkiSure);
+      const erkenOlanlar = liste
+        .map((row, i) => ({ row, i }))
+        .filter(({ row, i }) => kisiVarMi(isim, row) && i < enErkenSlot)
+        .map(({ row }) => row);
+      if (!erkenOlanlar.length) return;
+      erkenOlanlar.forEach(row => {
+        liste.splice(liste.indexOf(row), 1);
+        row._aciklama.push({ tip: 'yellow', metin: `${isim} ${dakika} dk geç gelecek` });
+      });
+      const hedef = Math.min(enErkenSlot, liste.length);
+      erkenOlanlar.forEach((row, j) => liste.splice(hedef + j, 0, row));
+    });
+
+    Object.entries(erkenGidenler).forEach(([isim, dakika]) => {
+      const sonSlot = Math.floor(dakika / sarkiSure);
+      const oneCekilecek = [];
+      for (let i = liste.length - 1; i >= 0; i--) {
+        if (kisiVarMi(isim, liste[i]) && i >= sonSlot) {
+          const [row] = liste.splice(i, 1);
+          row._aciklama.push({ tip: 'blue', metin: `${isim} ${dakika} dk sonra gidecek` });
+          oneCekilecek.unshift(row);
+        }
+      }
+      let hedef = sonSlot;
+      oneCekilecek.forEach(row => {
+        liste.splice(Math.min(hedef, liste.length), 0, row);
+        hedef++;
+      });
+    });
+
+    return liste;
+  }
+
+  function slCalistir() {
+    const btn = document.querySelector('.sl-run-btn');
+    const errEl = document.getElementById('sl-error');
+    btn.disabled = true;
+    document.getElementById('sl-btn-text').textContent = '⏳ Yükleniyor...';
+    errEl.textContent = '';
+
+    const sarkiSure = parseInt(document.getElementById('sl-sarki-sure').value) || 6;
+
+    fetch(SHEET_URL)
+      .then(r => {
+        if (!r.ok) throw new Error('Sheet\'e erişilemedi.');
+        return r.text();
+      })
+      .then(csv => {
+        const results = Papa.parse(csv, { header: true, skipEmptyLines: true });
+        const rows = results.data;
+        if (!rows || rows.length === 0) throw new Error("Veri yüklenemedi.");
+        const siralanmis = siralayici(rows, slGelmeyecekler);
+        const zamanlanmis = zamanla(siralanmis, slGecGelenler, slErkenGidenler, sarkiSure);
+        slGoster(zamanlanmis);
+        btn.disabled = false;
+        document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
+      })
+      .catch(e => {
+        errEl.textContent = '⚠️ ' + e.message;
+        btn.disabled = false;
+        document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
+      });
+}
+
+  function slGoster(zamanlanmis) {
+    const sarkiSutunu = zamanlanmis[0]
+      ? Object.keys(zamanlanmis[0]).find(k => !k.startsWith('_'))
+      : 'Şarkı';
+
+    document.getElementById('sl-sarki-sayisi').textContent = zamanlanmis.length + ' şarkı';
+    document.getElementById('sl-placeholder').style.display = 'none';
+    document.getElementById('sl-result-wrapper').style.display = 'flex';
+
+    document.getElementById('sl-tbody').innerHTML = zamanlanmis.map((row, i) => {
+      const sarki  = row[sarkiSutunu] || '—';
+      const puan   = row._puan || 0;
+      const notlar = row._aciklama || [];
+      const tipler = new Set(notlar.map(n => n.tip));
+      let trClass = '';
+      if (tipler.has('red') && (tipler.has('yellow') || tipler.has('blue'))) trClass = 'sl-tr-mix';
+      else if (tipler.has('red'))    trClass = 'sl-tr-red';
+      else if (tipler.has('yellow')) trClass = 'sl-tr-yellow';
+      else if (tipler.has('blue'))   trClass = 'sl-tr-blue';
+      const badgeMap = { red:'sl-nbadge-red', yellow:'sl-nbadge-yellow', blue:'sl-nbadge-blue' };
+      const notHtml = notlar.map(n =>
+        `<span class="sl-nbadge ${badgeMap[n.tip]}">${n.metin}</span>`
+      ).join('');
+      return `<tr class="${trClass}">
+        <td class="sl-td-num">${i+1}</td>
+        <td class="sl-td-sarki">${sarki}</td>
+        <td class="sl-td-puan ${puan > 0 ? 'sl-puan-high':''}">${puan > 0 ? puan : ''}</td>
+        <td class="sl-td-notlar">${notHtml}</td>
+      </tr>`;
+    }).join('');
+  }
+</script>
 </body>
 </html>
