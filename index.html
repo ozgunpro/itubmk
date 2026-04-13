@@ -1917,18 +1917,37 @@ document.getElementById('contactForm').addEventListener('submit', async function
   let slErkenGidenler = {};
 
   function acSetlistModal() {
-    document.getElementById('setlistPinModal').style.display = 'flex';
+    const el = document.getElementById('setlistPinModal');
+    el.style.display = 'flex';
+    el.style.opacity = '0';
+    el.querySelector('.sl-pin-box').style.transform = 'scale(0.92) translateY(16px)';
+    requestAnimationFrame(() => {
+        el.style.transition = 'opacity 0.25s ease';
+        el.querySelector('.sl-pin-box').style.transition = 'transform 0.25s ease';
+        el.style.opacity = '1';
+        el.querySelector('.sl-pin-box').style.transform = 'scale(1) translateY(0)';
+    });
     document.getElementById('pinError').textContent = '';
     document.querySelectorAll('.sl-pin-digit').forEach((el, i) => {
-      el.value = '';
-      el.classList.remove('sl-pin-wrong');
-      if (i === 0) setTimeout(() => el.focus(), 100);
+        el.value = '';
+        el.classList.remove('sl-pin-wrong');
+        if (i === 0) setTimeout(() => el.focus(), 100);
     });
-  }
+}
 
-  function kapat(id) {
-    document.getElementById(id).style.display = 'none';
-  }
+function kapat(id) {
+    const el = document.getElementById(id);
+    const inner = el.querySelector('.sl-pin-box, .sl-app-box');
+    el.style.transition = 'opacity 0.2s ease';
+    if (inner) inner.style.transition = 'transform 0.2s ease';
+    el.style.opacity = '0';
+    if (inner) inner.style.transform = 'scale(0.94) translateY(12px)';
+    setTimeout(() => {
+        el.style.display = 'none';
+        el.style.opacity = '';
+        if (inner) inner.style.transform = '';
+    }, 200);
+}
 
   document.addEventListener('DOMContentLoaded', () => {
     const digits = document.querySelectorAll('.sl-pin-digit');
@@ -1956,8 +1975,19 @@ document.getElementById('contactForm').addEventListener('submit', async function
     const digits = document.querySelectorAll('.sl-pin-digit');
     const giris = [...digits].map(d => d.value).join('');
     if (giris === CORRECT_PIN) {
-      kapat('setlistPinModal');
-      document.getElementById('setlistApp').style.display = 'flex';
+        kapat('setlistPinModal');
+        setTimeout(() => {
+            const app = document.getElementById('setlistApp');
+            app.style.display = 'flex';
+            app.style.opacity = '0';
+            app.querySelector('.sl-app-box').style.transform = 'scale(0.95) translateY(20px)';
+            requestAnimationFrame(() => {
+                app.style.transition = 'opacity 0.3s ease';
+                app.querySelector('.sl-app-box').style.transition = 'transform 0.3s ease';
+                app.style.opacity = '1';
+                app.querySelector('.sl-app-box').style.transform = 'scale(1) translateY(0)';
+    });
+}, 220);
     } else {
       digits.forEach(d => d.classList.add('sl-pin-wrong'));
       document.getElementById('pinError').textContent = 'Yanlış PIN.';
@@ -2054,21 +2084,33 @@ document.getElementById('contactForm').addEventListener('submit', async function
     });
 
     Object.entries(erkenGidenler).forEach(([isim, dakika]) => {
-      const sonSlot = Math.floor(dakika / sarkiSure);
-      const oneCekilecek = [];
-      for (let i = liste.length - 1; i >= 0; i--) {
-        if (kisiVarMi(isim, liste[i]) && i >= sonSlot) {
-          const [row] = liste.splice(i, 1);
-          row._aciklama.push({ tip: 'blue', metin: `${isim} ${dakika} dk sonra gidecek` });
-          oneCekilecek.unshift(row);
-        }
-      }
-      let hedef = sonSlot;
-      oneCekilecek.forEach(row => {
-        liste.splice(Math.min(hedef, liste.length), 0, row);
-        hedef++;
-      });
-    });
+  const sonSlot = Math.floor(dakika / sarkiSure);
+
+  const gecKalanlar = [];
+  for (let i = liste.length - 1; i >= sonSlot; i--) {
+    if (kisiVarMi(isim, liste[i])) {
+      const [row] = liste.splice(i, 1);
+      row._aciklama.push({ tip: 'blue', metin: `${isim} ${dakika} dk sonra gidecek` });
+      gecKalanlar.unshift(row);
+    }
+  }
+
+  if (!gecKalanlar.length) return;
+
+  const displaced = [];
+  for (let i = Math.min(sonSlot - 1, liste.length - 1);
+       i >= 0 && displaced.length < gecKalanlar.length; i--) {
+    if (!kisiVarMi(isim, liste[i])) {
+      displaced.unshift(liste.splice(i, 1)[0]);
+    }
+  }
+
+  const insertAt = Math.max(0, Math.min(sonSlot - gecKalanlar.length, liste.length));
+  gecKalanlar.forEach((row, j) => liste.splice(insertAt + j, 0, row));
+
+  const appendAt = Math.min(sonSlot, liste.length);
+  displaced.forEach((row, j) => liste.splice(appendAt + j, 0, row));
+});
 
     return liste;
   }
