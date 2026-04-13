@@ -1882,6 +1882,11 @@ document.getElementById('contactForm').addEventListener('submit', async function
           <div id="sl-result-wrapper" class="sl-result-wrapper" style="display:none;">
             <div class="sl-result-header">
               <span class="sl-label">📋 Setlist</span>
+              <div class="sl-tabs">
+                <button class="sl-tab active" onclick="slTabSec(0)">Sıralama 1</button>
+                <button class="sl-tab" onclick="slTabSec(1)">Sıralama 2</button>
+                <button class="sl-tab" onclick="slTabSec(2)">Sıralama 3</button>
+              </div>
               <span id="sl-sarki-sayisi" class="sl-result-count"></span>
             </div>
             <div class="sl-table-scroll">
@@ -2048,74 +2053,130 @@ function kapat(id) {
   function kisiVarMi(isim, row) {
     return Object.values(row).includes(isim);
   }
+// ── Yeni Sıralama Motoru ─────────────────────────────────
 
-  function siralayici(rows, gelmeyen) {
-    const sonuc = rows.map(r => ({ ...r, _puan: 0, _aciklama: [] }));
-    gelmeyen.forEach(isim => {
-      sonuc.forEach(row => {
-        Object.entries(row).forEach(([enstruman, deger]) => {
-          if (PUANLAR[enstruman] !== undefined && deger === isim) {
-            row._puan += PUANLAR[enstruman];
-            row._aciklama.push({ tip: 'red', metin: `${isim} (${enstruman}) gelmeyecek` });
-          }
+let slAlternatifler = [];
+let slAktifTab = 0;
+
+function annotate(rows, gelmeyenler, gecGelenler, erkenGidenler, sarkiSure) {
+    return rows.map(row => {
+        const s = { ...row, _puan: 0, _aciklama: [], _enErken: 0, _enGec: Infinity };
+
+        Object.entries(gecGelenler).forEach(([isim, dk]) => {
+            if (kisiVarMi(isim, row)) {
+                const slot = Math.ceil(dk / sarkiSure);
+                if (slot > s._enErken) s._enErken = slot;
+                s._aciklama.push({ tip: 'yellow', metin: `${isim} ${dk} dk geç gelecek` });
+            }
         });
-      });
+
+        Object.entries(erkenGidenler).forEach(([isim, dk]) => {
+            if (kisiVarMi(isim, row)) {
+                const slot = Math.floor(dk / sarkiSure);
+                if (slot < s._enGec) s._enGec = slot;
+                s._aciklama.push({ tip: 'blue', metin: `${isim} ${dk} dk sonra gidecek` });
+            }
+        });
+
+        gelmeyenler.forEach(isim => {
+            Object.entries(row).forEach(([enstruman, deger]) => {
+                if (PUANLAR[enstruman] !== undefined && deger === isim) {
+                    s._puan += PUANLAR[enstruman];
+                    s._aciklama.push({ tip: 'red', metin: `${isim} (${enstruman}) gelmeyecek` });
+                }
+            });
+        });
+
+        return s;
     });
-    sonuc.sort((a, b) => a._puan - b._puan);
-    return sonuc;
-  }
+}
 
-  function zamanla(siralanmis, gecGelenler, erkenGidenler, sarkiSure) {
-    const liste = [...siralanmis];
+function pickSong(available, slot, variant) {
+    const withDeadline = available.filter(s => s._enGec < Infinity);
+    const noDeadline   = available.filter(s => s._enGec === Infinity);
 
-    Object.entries(gecGelenler).forEach(([isim, dakika]) => {
-      const enErkenSlot = Math.ceil(dakika / sarkiSure);
-      const erkenOlanlar = liste
-        .map((row, i) => ({ row, i }))
-        .filter(({ row, i }) => kisiVarMi(isim, row) && i < enErkenSlot)
-        .map(({ row }) => row);
-      if (!erkenOlanlar.length) return;
-      erkenOlanlar.forEach(row => {
-        liste.splice(liste.indexOf(row), 1);
-        row._aciklama.push({ tip: 'yellow', metin: `${isim} ${dakika} dk geç gelecek` });
-      });
-      const hedef = Math.min(enErkenSlot, liste.length);
-      erkenOlanlar.forEach((row, j) => liste.splice(hedef + j, 0, row));
-    });
+    // Her zaman: deadline'ı geçmek üzere olanları önce al
+    const mustPlace = withDeadline.filter(s => s._enGec <= slot + 1);
+    if (mustPlace.length > 0)
+        return mustPlace.sort((a, b) => a._enGec - b._enGec)[0];
 
-    Object.entries(erkenGidenler).forEach(([isim, dakika]) => {
-  const sonSlot = Math.floor(dakika / sarkiSure);
+    if (variant === 1) {
+        // Deadline Öncelikli: erken gidecekler hep önce
+        if (withDeadline.length > 0)
+            return withDeadline.sort((a, b) => a._enGec - b._enGec || a._puan - b._puan)[0];
+        const clean = noDeadline.filter(s => s._puan === 0);
+        return clean.length > 0 ? clean[0] : noDeadline[0];
 
-  const gecKalanlar = [];
-  for (let i = liste.length - 1; i >= sonSlot; i--) {
-    if (kisiVarMi(isim, liste[i])) {
-      const [row] = liste.splice(i, 1);
-      row._aciklama.push({ tip: 'blue', metin: `${isim} ${dakika} dk sonra gidecek` });
-      gecKalanlar.unshift(row);
+    } else if (variant === 2) {
+        // Dengeli: deadline 3 slot içindeyse önce al, değilse temiz şarkı
+        const soonDeadline = withDeadline.filter(s => s._enGec <= slot + 3);
+        if (soonDeadline.length > 0)
+            return soonDeadline.sort((a, b) => a._enGec - b._enGec)[0];
+        const clean = noDeadline.filter(s => s._puan === 0);
+        if (clean.length > 0) return clean[0];
+        if (withDeadline.length > 0) return withDeadline.sort((a, b) => a._enGec - b._enGec)[0];
+        return noDeadline[0];
+
+    } else {
+        // Geç Gelenler Gruplanmış: aynı anda gelen kişilerin şarkılarını grupla
+        const currentGroup = available.filter(s => s._enErken === slot);
+        if (currentGroup.length > 0) {
+            const withDL  = currentGroup.filter(s => s._enGec < Infinity);
+            const clean   = currentGroup.filter(s => s._puan === 0 && s._enGec === Infinity);
+            if (withDL.length > 0) return withDL.sort((a, b) => a._enGec - b._enGec)[0];
+            if (clean.length > 0)  return clean[0];
+            return currentGroup[0];
+        }
+        if (withDeadline.length > 0)
+            return withDeadline.sort((a, b) => a._enGec - b._enGec)[0];
+        const clean = noDeadline.filter(s => s._puan === 0);
+        return clean.length > 0 ? clean[0] : noDeadline[0];
     }
-  }
+}
 
-  if (!gecKalanlar.length) return;
+function buildSchedule(annotated, variant, label) {
+    const remaining = [...annotated];
+    const result = [];
+    const n = remaining.length;
 
-  const displaced = [];
-  for (let i = Math.min(sonSlot - 1, liste.length - 1);
-       i >= 0 && displaced.length < gecKalanlar.length; i--) {
-    if (!kisiVarMi(isim, liste[i])) {
-      displaced.unshift(liste.splice(i, 1)[0]);
+    for (let slot = 0; slot < n; slot++) {
+        let available = remaining.filter(s => s._enErken <= slot);
+
+        if (available.length === 0) {
+            const pick = remaining.reduce((a, b) => a._enErken < b._enErken ? a : b);
+            result.push(pick);
+            remaining.splice(remaining.indexOf(pick), 1);
+            continue;
+        }
+
+        // Gelmeyen şarkılarını sona it: temiz veya deadline'lı şarkı varsa absent'ı pas geç
+        const cleanAvail  = available.filter(s => s._puan === 0);
+        const urgentAbsent = available.filter(s => s._puan > 0 && s._enGec < Infinity);
+        let pickFrom = available;
+        if (cleanAvail.length > 0 && urgentAbsent.length === 0) {
+            const absentNoDeadline = available.filter(s => s._puan > 0 && s._enGec === Infinity);
+            if (absentNoDeadline.length > 0)
+                pickFrom = available.filter(s => !(s._puan > 0 && s._enGec === Infinity));
+        }
+
+        const pick = pickSong(pickFrom, slot, variant) || pickSong(available, slot, variant);
+        result.push(pick);
+        remaining.splice(remaining.indexOf(pick), 1);
     }
-  }
 
-  const insertAt = Math.max(0, Math.min(sonSlot - gecKalanlar.length, liste.length));
-  gecKalanlar.forEach((row, j) => liste.splice(insertAt + j, 0, row));
+    return { label, songs: result };
+}
 
-  const appendAt = Math.min(sonSlot, liste.length);
-  displaced.forEach((row, j) => liste.splice(appendAt + j, 0, row));
-});
+function yeniSirala(rows, gelmeyenler, gecGelenler, erkenGidenler, sarkiSure) {
+    const annotated = annotate(rows, gelmeyenler, gecGelenler, erkenGidenler, sarkiSure);
+    return [
+        buildSchedule(annotated, 1, '🎯 Deadline Öncelikli'),
+        buildSchedule(annotated, 2, '⚖️ Dengeli'),
+        buildSchedule(annotated, 3, '👥 Geç Gelenler Gruplanmış'),
+    ];
+}
 
-    return liste;
-  }
-
-  function slCalistir() {
+function slCalistir() {
     const btn = document.querySelector('.sl-run-btn');
     const errEl = document.getElementById('sl-error');
     btn.disabled = true;
@@ -2125,58 +2186,65 @@ function kapat(id) {
     const sarkiSure = parseInt(document.getElementById('sl-sarki-sure').value) || 6;
 
     fetch(SHEET_URL)
-      .then(r => {
-        if (!r.ok) throw new Error('Sheet\'e erişilemedi.');
-        return r.text();
-      })
-      .then(csv => {
-        const results = Papa.parse(csv, { header: true, skipEmptyLines: true });
-        const rows = results.data;
-        if (!rows || rows.length === 0) throw new Error("Veri yüklenemedi.");
-        const siralanmis = siralayici(rows, slGelmeyecekler);
-        const zamanlanmis = zamanla(siralanmis, slGecGelenler, slErkenGidenler, sarkiSure);
-        slGoster(zamanlanmis);
-        btn.disabled = false;
-        document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
-      })
-      .catch(e => {
-        errEl.textContent = '⚠️ ' + e.message;
-        btn.disabled = false;
-        document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
-      });
+        .then(r => { if (!r.ok) throw new Error("Sheet'e erişilemedi."); return r.text(); })
+        .then(csv => {
+            const rows = Papa.parse(csv, { header: true, skipEmptyLines: true }).data;
+            if (!rows || rows.length === 0) throw new Error("Veri yüklenemedi.");
+            slAlternatifler = yeniSirala(rows, slGelmeyecekler, slGecGelenler, slErkenGidenler, sarkiSure);
+            slAktifTab = 0;
+            slGoster();
+            btn.disabled = false;
+            document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
+        })
+        .catch(e => {
+            errEl.textContent = '⚠️ ' + e.message;
+            btn.disabled = false;
+            document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
+        });
 }
 
-  function slGoster(zamanlanmis) {
-    const sarkiSutunu = zamanlanmis[0]
-      ? Object.keys(zamanlanmis[0]).find(k => !k.startsWith('_'))
-      : 'Şarkı';
+function slTabSec(idx) {
+    slAktifTab = idx;
+    document.querySelectorAll('.sl-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+    slTabloGoster(slAlternatifler[idx].songs);
+}
 
-    document.getElementById('sl-sarki-sayisi').textContent = zamanlanmis.length + ' şarkı';
+function slGoster() {
     document.getElementById('sl-placeholder').style.display = 'none';
     document.getElementById('sl-result-wrapper').style.display = 'flex';
+    slAlternatifler.forEach((alt, i) => {
+        const tab = document.querySelectorAll('.sl-tab')[i];
+        if (tab) tab.textContent = alt.label;
+    });
+    document.querySelectorAll('.sl-tab').forEach((t, i) => t.classList.toggle('active', i === 0));
+    slTabloGoster(slAlternatifler[0].songs);
+}
 
-    document.getElementById('sl-tbody').innerHTML = zamanlanmis.map((row, i) => {
-      const sarki  = row[sarkiSutunu] || '—';
-      const puan   = row._puan || 0;
-      const notlar = row._aciklama || [];
-      const tipler = new Set(notlar.map(n => n.tip));
-      let trClass = '';
-      if (tipler.has('red') && (tipler.has('yellow') || tipler.has('blue'))) trClass = 'sl-tr-mix';
-      else if (tipler.has('red'))    trClass = 'sl-tr-red';
-      else if (tipler.has('yellow')) trClass = 'sl-tr-yellow';
-      else if (tipler.has('blue'))   trClass = 'sl-tr-blue';
-      const badgeMap = { red:'sl-nbadge-red', yellow:'sl-nbadge-yellow', blue:'sl-nbadge-blue' };
-      const notHtml = notlar.map(n =>
-        `<span class="sl-nbadge ${badgeMap[n.tip]}">${n.metin}</span>`
-      ).join('');
-      return `<tr class="${trClass}">
-        <td class="sl-td-num">${i+1}</td>
-        <td class="sl-td-sarki">${sarki}</td>
-        <td class="sl-td-puan ${puan > 0 ? 'sl-puan-high':''}">${puan > 0 ? puan : ''}</td>
-        <td class="sl-td-notlar">${notHtml}</td>
-      </tr>`;
+function slTabloGoster(songs) {
+    const sarkiSutunu = songs[0] ? Object.keys(songs[0]).find(k => !k.startsWith('_')) : 'Şarkı';
+    document.getElementById('sl-sarki-sayisi').textContent = songs.length + ' şarkı';
+    document.getElementById('sl-tbody').innerHTML = songs.map((row, i) => {
+        const sarki  = row[sarkiSutunu] || '—';
+        const puan   = row._puan || 0;
+        const notlar = row._aciklama || [];
+        const tipler = new Set(notlar.map(n => n.tip));
+        let trClass = '';
+        if (tipler.has('red') && (tipler.has('yellow') || tipler.has('blue'))) trClass = 'sl-tr-mix';
+        else if (tipler.has('red'))    trClass = 'sl-tr-red';
+        else if (tipler.has('yellow')) trClass = 'sl-tr-yellow';
+        else if (tipler.has('blue'))   trClass = 'sl-tr-blue';
+        const badgeMap = { red: 'sl-nbadge-red', yellow: 'sl-nbadge-yellow', blue: 'sl-nbadge-blue' };
+        const notHtml = notlar.map(n =>
+            `<span class="sl-nbadge ${badgeMap[n.tip]}">${n.metin}</span>`
+        ).join('');
+        return `<tr class="${trClass}">
+            <td class="sl-td-num">${i + 1}</td>
+            <td class="sl-td-sarki">${sarki}</td>
+            <td class="sl-td-puan ${puan > 0 ? 'sl-puan-high' : ''}">${puan > 0 ? puan : ''}</td>
+            <td class="sl-td-notlar">${notHtml}</td>
+        </tr>`;
     }).join('');
-  }
+}
 </script>
 </body>
 </html>

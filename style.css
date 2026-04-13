@@ -2125,3 +2125,12 @@ footer {
     .sl-app-box { padding: 20px; }
     .sl-pin-box { width: 100%; max-width: 320px; padding: 36px 24px; }
 }
+/* Setlist Tabs */
+.sl-tabs { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.sl-tab {
+    background: #1e1e1e; border: 1px solid #333; color: rgba(255,255,255,0.5);
+    border-radius: 8px; padding: 6px 14px; font-size: 0.78rem;
+    font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.15s;
+}
+.sl-tab:hover { border-color: #555; color: rgba(255,255,255,0.8); }
+.sl-tab.active { background: #c8f542; color: #000; border-color: #c8f542; font-weight: 600; }
