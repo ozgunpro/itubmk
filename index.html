@@ -1848,6 +1848,16 @@ document.getElementById('contactForm').addEventListener('submit', async function
             <input id="sl-sarki-sure" class="sl-input" type="number" value="6" min="1" max="30">
           </div>
           <div class="sl-card">
+            <label class="sl-label">📋 Setlist Kaynağı</label>
+            <select id="sl-sheet-sec" class="sl-input" onchange="slSheetSec()">
+              <option value="preset">2025-2026 Bahar Setlisti</option>
+              <option value="custom">Özel Link Gir...</option>
+            </select>
+            <input id="sl-sheet-url" class="sl-input" type="text"
+              placeholder="https://docs.google.com/spreadsheets/..."
+              style="display:none; margin-top:8px;">
+          </div>
+          <div class="sl-card">
             <label class="sl-label">✗ Gelmeyecekler</label>
             <div id="sl-gelmeyecek-list" class="sl-tag-list"></div>
             <div class="sl-add-row">
@@ -2062,6 +2072,28 @@ function kapat(id) {
 
 let slAlternatifler = [];
 let slAktifTab = 0;
+function slSheetSec() {
+    const sec = document.getElementById('sl-sheet-sec').value;
+    document.getElementById('sl-sheet-url').style.display = sec === 'custom' ? 'block' : 'none';
+}
+
+function slAktifUrl() {
+    const sec = document.getElementById('sl-sheet-sec').value;
+    if (sec === 'custom') {
+        const url = document.getElementById('sl-sheet-url').value.trim();
+        if (!url) throw new Error("Lütfen bir Google Sheets linki girin.");
+        // Drive export linkine çevir
+        const match = url.match(/\/d\/([\w-]+)/);
+        const gidMatch = url.match(/gid=(\d+)/);
+        if (match) {
+            const id = match[1];
+            const gid = gidMatch ? gidMatch[1] : '0';
+            return `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}`;
+        }
+        return url; // direkt export linki girdiyse olduğu gibi kullan
+    }
+    return SHEET_URL;
+}
 
 function annotate(rows, gelmeyenler, gecGelenler, erkenGidenler, sarkiSure) {
     return rows.map(row => {
@@ -2192,7 +2224,14 @@ function slCalistir() {
 
     const sarkiSure = parseInt(document.getElementById('sl-sarki-sure').value) || 6;
 
-    fetch(SHEET_URL)
+    let fetchUrl;
+        try { fetchUrl = slAktifUrl(); } catch(e) {
+            errEl.textContent = '⚠️ ' + e.message;
+            btn.disabled = false;
+            document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
+            return;
+        }
+        fetch(fetchUrl)
         .then(r => { if (!r.ok) throw new Error("Sheet'e erişilemedi."); return r.text(); })
         .then(csv => {
             const rows = Papa.parse(csv, { header: true, skipEmptyLines: true }).data;
