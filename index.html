@@ -2051,8 +2051,13 @@ function kapat(id) {
   function slKaldirErken(isim) { delete slErkenGidenler[isim]; renderTags(); }
 
   function kisiVarMi(isim, row) {
-    return Object.values(row).includes(isim);
-  }
+    return Object.values(row).some(deger => {
+        if (typeof deger !== 'string') return false;
+        return deger.split(/\s*-\s*/).some(parca => 
+            parca.trim().toLowerCase() === isim.toLowerCase()
+        );
+    });
+}
 // ── Yeni Sıralama Motoru ─────────────────────────────────
 
 let slAlternatifler = [];
@@ -2080,13 +2085,15 @@ function annotate(rows, gelmeyenler, gecGelenler, erkenGidenler, sarkiSure) {
 
         gelmeyenler.forEach(isim => {
             Object.entries(row).forEach(([enstruman, deger]) => {
-                if (PUANLAR[enstruman] !== undefined && deger === isim) {
-                    s._puan += PUANLAR[enstruman];
-                    s._aciklama.push({ tip: 'red', metin: `${isim} (${enstruman}) gelmeyecek` });
+                if (PUANLAR[enstruman] !== undefined && typeof deger === 'string') {
+                    const parcalar = deger.split(/\s*-\s*/);
+                    if (parcalar.some(p => p.trim().toLowerCase() === isim.toLowerCase())) {
+                        s._puan += PUANLAR[enstruman];
+                        s._aciklama.push({ tip: 'red', metin: `${isim} (${enstruman}) gelmeyecek` });
+                    }
                 }
             });
         });
-
         return s;
     });
 }
