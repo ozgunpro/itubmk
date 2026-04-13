@@ -2197,7 +2197,8 @@ function buildSchedule(annotated, variant, label) {
             if (absentNoDeadline.length > 0)
                 pickFrom = available.filter(s => !(s._puan > 0 && s._enGec === Infinity));
         }
-
+        pickFrom.sort((a, b) => a._puan - b._puan);
+        available.sort((a, b) => a._puan - b._puan);
         const pick = pickSong(pickFrom, slot, variant) || pickSong(available, slot, variant);
         result.push(pick);
         remaining.splice(remaining.indexOf(pick), 1);
