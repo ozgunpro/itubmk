@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İTÜ Batı Müziği Kulübü</title>
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
     <nav id="navbar">
         <div class="nav-inner">
             <a href="#" class="logo">
-                <img src="logo.png" alt="BMK Logo" class="logo-img">
+                <img src="assets/logo.png" alt="BMK Logo" class="logo-img">
             </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#hakkimizda">Hakkımızda</a></li>
@@ -40,36 +40,27 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <!-- Background Image -->
+        <div class="hero-image-bg">
+            <img src="assets/gallery/hero-image.JPG" alt="" class="hero-bg-img">
+            <div class="hero-image-overlay"></div>
+        </div>
         <div class="hero-inner">
             <div class="hero-content">
-                <div class="hero-tag">
+                <div class="hero-tag hero-glass-pill">
                     <span class="dot"></span>
                     2004'ten Beri Müzikle Birlikte
                 </div>
-                <h1>Müziğin Kalbinde<br><span class="gradient">Bir Topluluk</span></h1>
-                <p class="hero-desc">İTÜ Batı Müziği Kulübü olarak 20 yılı aşkın süredir müzik tutkunlarını bir araya getiriyor, sahne deneyimi sunuyor ve unutulmaz anlar yaratıyoruz.</p>
+                <h1 class="hero-title-on-video">Müziğin Kalbinde<br><span class="gradient">Bir Topluluk</span></h1>
+                <p class="hero-desc hero-desc-on-video">İTÜ Batı Müziği Kulübü olarak 20 yılı aşkın süredir müzik tutkunlarını bir araya getiriyor, sahne deneyimi sunuyor ve unutulmaz anlar yaratıyoruz.</p>
                 <div class="hero-actions">
-                    <a href="#katil" class="btn btn-secondary" aria-disabled="true" tabindex="-1"><span>🎸</span> Başvurular Kapandı</a>
+                    <a href="bahar-konseri.html" class="btn btn-primary" id="nearestEventBtn"><span>🎵</span> Bahar Konseri'ne Kaydol!</a>
                     <a href="#etkinlikler" class="btn btn-secondary"><span>📅</span> Etkinlikleri Keşfet</a>
                 </div>
-                <p class="hero-note">Bu dönem başvurular kapandı. Önümüzdeki dönem görüşmek üzere.</p>
-            </div>
-            <div class="hero-visual">
-                <div class="poster-card">
-                    <div class="poster-glow"></div>
-                    <img src="poster.png" alt="2026 Bahar Müzisyen Seçmeleri" class="poster-image">
-                    <div class="poster-badge">
-                        <span class="badge-dot"></span>
-                        Başvurular Sonuçlandı
-                    </div>
-                </div>
-                <p class="poster-deadline">Son başvuru: 16 Şubat 2026, 23:59</p>
-                <a href="sonuclar.html" class="btn btn-secondary poster-results" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.7rem 1.5rem;">📋 Seçme Sonuçlarını Gör</a>
-                <p class="poster-deadline" style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--accent-blue);">Seçmeler önümüzdeki dönemin başında tekrar açılacaktır.</p>
+                <p class="hero-note hero-note-on-video">Etkinliklerimiz hakkında bilgi edinmek için kaydır ↓</p>
             </div>
         </div>
     </section>
-
     <!-- About Section -->
     <section id="hakkimizda">
         <div class="section-inner">
@@ -113,19 +104,21 @@
         </div>
     </section>
 
-    <!-- Events Section -->
-    <section id="etkinlikler">
-        <div class="section-inner">
-            <div class="section-header">
-                <div class="section-tag">📅 Etkinlikler</div>
-                <h2 class="section-title">Yaklaşan Etkinlikler</h2>
-                <p class="section-desc">Konserlerden sosyal etkinliklere kadar birçok aktivite sizi bekliyor.</p>
-            </div>
-            <div class="events-grid">
+<!-- Events Section -->
+<section id="etkinlikler">
+    <div class="section-inner">
+        <div class="section-header">
+            <div class="section-tag">📅 Etkinlikler</div>
+            <h2 class="section-title">Yaklaşan Etkinlikler</h2>
+            <p class="section-desc">Konserlerden sosyal etkinliklere kadar birçok aktivite sizi bekliyor.</p>
+        </div>
+        <div class="events-grid">
+            <a href="cig-kofte.html" class="event-card-link">
                 <div class="event-card">
                     <div class="event-cover lime">
+                        <img src="assets/posters/cig-kofte.jpg" alt="" class="event-cover-img" onerror="this.remove()">
                         <span class="event-cover-icon">🥙</span>
-                        <div class="event-date-badge">Henüz Belirlenmedi</div>
+                        <div class="event-date-badge">15 Mayıs</div>
                     </div>
                     <div class="event-body">
                         <span class="event-type sosyal">Sosyal Etkinlik</span>
@@ -133,59 +126,67 @@
                         <p>Kimya Mühendisliği ile birlikte düzenlediğimiz geleneksel çiğ köfte etkinliği.</p>
                         <div class="event-meta">
                             <span>📍 İTÜ Hafıza Yolu</span>
-                            <span>⏰ 16:00</span>
+                            <span>⏰ 18:00</span>
                         </div>
                     </div>
                 </div>
-                <div class="event-card">
-                    <div class="event-cover coral">
-                        <span class="event-cover-icon">🎸</span>
-                        <div class="event-date-badge">7-8-9 Mayıs</div>
-                    </div>
-                    <div class="event-body">
-                        <span class="event-type konser">Konser</span>
-                        <h3>Taşkışla Konseri</h3>
-                        <p>Taşkışla Kampüsü'nün tarihi atmosferinde unutulmaz bir konser deneyimi.</p>
-                        <div class="event-meta">
-                            <span>📍 İTÜ Taşkışla Kampüsü Orta Bahçe</span>
-                            <span>⏰ 19:00</span>
-                        </div>
+            </a>
+
+            <div class="event-card">
+                <div class="event-cover coral">
+                    <img src="assets/posters/taskisla.png" alt="" class="event-cover-img" onerror="this.remove()">
+                    <span class="event-cover-icon">🎸</span>
+                    <div class="event-date-badge">13 Mayıs</div>
+                </div>
+                <div class="event-body">
+                    <span class="event-type konser">Konser</span>
+                    <h3>Taşkışla Konseri</h3>
+                    <p>Taşkışla Kampüsü'nün tarihi atmosferinde unutulmaz bir konser deneyimi.</p>
+                    <div class="event-meta">
+                        <span>📍 İTÜ Taşkışla Kampüsü Orta Bahçe</span>
+                        <span>⏰ 17.30</span>
                     </div>
                 </div>
+            </div>
+
+            <a href="bahar-konseri.html" class="event-card-link">
                 <div class="event-card">
                     <div class="event-cover mixed">
+                        <img src="assets/posters/bahar-konseri.png" alt="" class="event-cover-img" onerror="this.remove()">
                         <span class="event-cover-icon">🎤</span>
-                        <div class="event-date-badge">Henüz Belirlenmedi</div>
+                        <div class="event-date-badge">22 Mayıs</div>
                     </div>
                     <div class="event-body">
                         <span class="event-type konser">Konser</span>
                         <h3>Bahar Konseri</h3>
                         <p>BMK'nın sahne alacağı, baharın gelişini kutladığımız geleneksel konserimiz.</p>
                         <div class="event-meta">
-                            <span>📍 İTÜ Havuz Binası Otoparkı</span>
-                            <span>⏰ 19:30</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-cover blue">
-                        <span class="event-cover-icon">🎻</span>
-                        <div class="event-date-badge">Henüz Belirlenmedi</div>
-                    </div>
-                    <div class="event-body">
-                        <span class="event-type klasik">Klasik Müzik</span>
-                        <h3>Klasik Müzik Konseri</h3>
-                        <p>Klasik müzik severler için özel olarak hazırlanmış zarif bir akşam.</p>
-                        <div class="event-meta">
-                            <span>📍 İTÜ Mustafa Kemal Amfisi</span>
+                            <span>📍 İTÜ Merkezi Derslik A Binası Çimenleri</span>
                             <span>⏰ 19:00</span>
                         </div>
                     </div>
                 </div>
+            </a>
+
+            <div class="event-card">
+                <div class="event-cover blue">
+                    <img src="assets/posters/klasik-muzik.png" alt="" class="event-cover-img" onerror="this.remove()">
+                    <span class="event-cover-icon">🎻</span>
+                    <div class="event-date-badge">22 Mayıs</div>
+                </div>
+                <div class="event-body">
+                    <span class="event-type klasik">Klasik Müzik</span>
+                    <h3>Klasik Müzik Konseri</h3>
+                    <p>Klasik müzik severler için özel olarak hazırlanmış zarif bir akşam.</p>
+                    <div class="event-meta">
+                        <span>📍 İTÜ Gümüşsuyu Kampüsü Orhan Öcalgiray Amfisi</span>
+                        <span>⏰ 18:00</span>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     <!-- Geçmiş Etkinlikler Section -->
     <section id="gecmis">
         <div class="section-inner">
@@ -429,7 +430,23 @@
                 <div class="status-tag">Başvurular Kapandı</div>
             </div>
 
-            <!-- Başvuru Türü Seçimi -->
+    <!-- Afiş + Başvuru Seçenekleri Yan Yana -->
+    <div class="katil-grid">
+        <!-- Sol: Afiş -->
+        <div class="katil-poster-col">
+            <div class="poster-card">
+                <div class="poster-glow"></div>
+                <img src="assets/posters/poster.png" alt="2026 Bahar Müzisyen Seçmeleri" class="poster-image">
+                <div class="poster-badge">
+                    <span class="badge-dot"></span>
+                    Başvurular Sonuçlandı
+                </div>
+            </div>
+            <p class="poster-deadline">Son başvuru: 16 Şubat 2026, 23:59</p>
+        </div>
+
+        <!-- Sağ: Başvuru Türü Seçimi + Sonuçları Gör -->
+        <div class="katil-right-col">
             <div class="application-choice" id="applicationChoice">
                 <h3 class="choice-title">Hangi alandan başvurmak istiyorsunuz?</h3>
                 <p class="choice-subtitle">Dilerseniz her ikisinden de ayrı ayrı başvurabilirsiniz.</p>
@@ -450,6 +467,13 @@
                 </div>
             </div>
 
+            <!-- Sonuçları Gör CTA -->
+            <div class="katil-results-cta">
+                <a href="sonuclar.html" class="btn btn-secondary poster-results">📋 Seçme Sonuçlarını Gör</a>
+                <p class="poster-deadline poster-deadline-accent">Seçmeler önümüzdeki dönemin başında tekrar açılacaktır.</p>
+            </div>
+        </div>
+    </div>
             <!-- MÜZİSYEN BAŞVURU FORMU -->
             <div class="application-container" id="muzisyenForm" style="display: none;">
                 <button class="back-to-choice" onclick="showChoice()">← Geri Dön</button>
@@ -879,7 +903,6 @@
                     </form>
                 </div>
             </div>
-
             <!-- VOKAL BAŞVURU FORMU -->
             <div class="application-container" id="vokalForm" style="display: none;">
                 <button class="back-to-choice" onclick="showChoice()">← Geri Dön</button>
@@ -1314,7 +1337,7 @@
             <div class="footer-top">
                 <div class="footer-brand">
                     <a href="#" class="logo">
-                        <img src="logo.png" alt="BMK Logo" class="logo-img">
+                        <img src="assets/logo.png" alt="BMK Logo" class="logo-img">
                     </a>
                     <p>2004'ten bu yana İTÜ'nün müzik tutkusu. Batı Müziği Kulübü olarak müziği seven herkesi bir araya getiriyoruz.</p>
                 </div>
@@ -1364,12 +1387,18 @@
     </footer>
 
     <script>
-        // Navbar scroll effect
+        // Navbar scroll effect — hero geçildikten sonra fixed olur
         const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
-        });
+        const heroSec = document.querySelector('.hero');
 
+        function updateNavbar() {
+            const threshold = heroSec ? heroSec.offsetHeight - 80 : 50;
+            navbar.classList.toggle('scrolled', window.scrollY > threshold);
+        }
+
+        window.addEventListener('scroll', updateNavbar, { passive: true });
+        window.addEventListener('resize', updateNavbar);
+        updateNavbar();
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {

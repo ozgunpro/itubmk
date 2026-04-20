@@ -2134,3 +2134,878 @@ footer {
 }
 .sl-tab:hover { border-color: #555; color: rgba(255,255,255,0.8); }
 .sl-tab.active { background: #c8f542; color: #000; border-color: #c8f542; font-weight: 600; }
+
+/* ================================================================
+   HERO — Background Image
+   ================================================================ */
+
+   .hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-image-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.hero-bg-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+}
+
+.hero-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.25) 0%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+}
+
+/* İçerik overlay üstünde */
+.hero-inner {
+    position: relative;
+    z-index: 2;
+}
+
+/* Hero yazıları — fotoğraf üstünde okunur */
+.hero-title-on-video {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    text-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.6),
+        0 4px 16px rgba(0, 0, 0, 0.5),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.hero-title-on-video .gradient {
+    text-shadow: none !important;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+}
+
+.hero-desc-on-video,
+.hero-note-on-video {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    text-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.7),
+        0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.hero-glass-pill {
+    background: #ffffff !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.hero-actions .btn-secondary,
+.hero-actions .btn-primary {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* ================================================================
+   NAVBAR — Hero'da kayar, hero'dan sonra yapışır
+   ================================================================ */
+
+#navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    transition: background-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+#navbar.scrolled {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    animation: navbarSlideDown 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes navbarSlideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+}
+
+/* Hero üstündeyken menü linkleri beyaz buton */
+#navbar .nav-menu a {
+    display: inline-block;
+    padding: 0.5rem 1.1rem;
+    background: rgba(255, 255, 255, 0.92);
+    color: #1a1a1a !important;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 999px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    text-shadow: none !important;
+    transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, padding 0.3s ease;
+}
+
+#navbar .nav-menu a:hover {
+    background: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+}
+
+/* Hero geçildiğinde: normal link */
+#navbar.scrolled .nav-menu a {
+    background: transparent;
+    color: var(--text-primary) !important;
+    box-shadow: none;
+    padding: 0.5rem 0.8rem;
+    font-weight: 500;
+}
+
+#navbar.scrolled .nav-menu a:hover {
+    background: rgba(0, 0, 0, 0.04);
+    transform: none;
+    box-shadow: none;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 0.4rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+/* Ambient orb'ları kaldır */
+.ambient-bg {
+    display: none !important;
+}
+
+/* ============================================
+   EVENT DETAY SAYFASI
+   (bahar-konseri.html, taskisla.html vs.)
+   ============================================ */
+
+   .event-detail-page {
+    background: var(--bg-primary);
+    min-height: 100vh;
+}
+
+/* Event detay sayfasında navbar her zaman beyaz cam (hero yok) */
+.event-detail-page #navbar {
+    position: fixed;
+}
+
+/* Hero'ya özel menü buton stili burada devreye girmesin */
+.event-detail-page #navbar .nav-menu a {
+    display: inline-block;
+    padding: 0.5rem 0.8rem;
+    background: transparent;
+    color: var(--text-primary) !important;
+    font-weight: 500;
+    border-radius: 0;
+    box-shadow: none;
+    text-shadow: none !important;
+}
+
+.event-detail-page #navbar .nav-menu a:hover {
+    background: rgba(0, 0, 0, 0.04);
+    transform: none;
+    box-shadow: none;
+}
+
+/* Ana detay container */
+.event-detail {
+    padding: 7rem 2rem 4rem;
+    min-height: calc(100vh - 200px);
+}
+
+.event-detail-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Geri dön linki */
+.event-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    transition: all 0.25s ease;
+}
+
+.event-back-link:hover {
+    color: var(--accent-blue);
+    transform: translateX(-4px);
+}
+
+.event-back-link span {
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+.event-back-link:hover span {
+    transform: translateX(-2px);
+}
+
+/* Üst başlık bölümü */
+.event-detail-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.event-detail-header .event-type {
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.event-detail-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    line-height: 1.1;
+}
+
+.event-detail-tagline {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Ana grid: afiş + bilgi */
+.event-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    align-items: start;
+    margin-bottom: 4rem;
+}
+
+/* Afiş */
+.event-detail-poster-wrapper {
+    position: sticky;
+    top: 7rem;
+}
+
+.event-detail-poster {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(232, 106, 106, 0.1), rgba(58, 139, 168, 0.1));
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+.event-detail-poster-glow {
+    position: absolute;
+    inset: -20px;
+    background: var(--gradient-main);
+    filter: blur(40px);
+    opacity: 0.25;
+    z-index: -1;
+    border-radius: 20px;
+}
+
+.event-detail-poster-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Afiş yoksa placeholder */
+.event-detail-poster.poster-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #fce4e4, #e4f4f9);
+}
+
+.poster-placeholder-content {
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.poster-placeholder-content span {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.poster-placeholder-content p {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Sağ içerik */
+.event-detail-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+/* Hızlı bilgi kartları */
+.event-info-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.event-info-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.event-info-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.event-info-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.event-info-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.event-info-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.1rem;
+}
+
+.event-info-text strong {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Açıklama */
+.event-detail-description h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.event-detail-description p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 0.9rem;
+    font-size: 1rem;
+}
+
+.event-detail-description p:last-child {
+    margin-bottom: 0;
+}
+
+.event-detail-description strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Highlights */
+.event-detail-highlights h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.highlight-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.highlight-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    transition: all 0.25s ease;
+}
+
+.highlight-item:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateX(2px);
+}
+
+.highlight-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+/* CTA */
+.event-detail-cta {
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.event-register-btn {
+    width: 100%;
+    padding: 1.1rem 2rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background: var(--gradient-main);
+    color: white;
+    border-radius: 999px;
+    box-shadow: 0 10px 30px rgba(232, 106, 106, 0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.event-register-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 38px rgba(232, 106, 106, 0.35);
+}
+
+.event-register-btn:active {
+    transform: translateY(0);
+}
+
+.event-cta-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.75rem;
+}
+
+/* Ek bilgi kartları */
+.event-detail-extra {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.event-extra-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.event-extra-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.event-extra-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.event-extra-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 0.93rem;
+}
+
+.event-extra-card a {
+    color: var(--accent-blue);
+    font-weight: 500;
+}
+
+.event-extra-card a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.event-footer {
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.event-footer a {
+    color: var(--accent-blue);
+    font-weight: 500;
+}
+
+.event-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   Event Card Tıklanabilir
+   ============================================ */
+
+.event-card {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Event card içindeki link — card'ın tamamını sarar */
+.event-card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 968px) {
+    .event-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .event-detail-poster-wrapper {
+        position: static;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .event-detail-extra {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .event-detail {
+        padding: 6rem 1rem 3rem;
+    }
+    
+    .event-info-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .highlight-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .event-detail-header {
+        margin-bottom: 2rem;
+    }
+}
+
+/* ============================================
+   KATIL — Afiş Solda + Başvuru Seçenekleri Sağda
+   ============================================ */
+
+   .katil-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3.5rem;
+    align-items: start;
+    max-width: 1100px;
+    margin: 3rem auto;
+}
+
+/* Sol kolon: afiş + alt bilgiler */
+.katil-poster-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 420px;
+}
+
+.katil-poster-col .poster-card {
+    width: 100%;
+    margin-bottom: 0.75rem;
+}
+
+.katil-poster-col .poster-deadline {
+    text-align: center;
+    margin: 0.25rem 0;
+}
+
+.katil-poster-col .poster-results {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    padding: 0.7rem 1.5rem;
+    align-self: center;
+}
+
+.katil-poster-col .poster-deadline-accent {
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--accent-blue);
+}
+
+/* Afiş hover efektlerini başvurular kapalıyken kaldır */
+.applications-closed .katil-poster-col .poster-card,
+.applications-closed .katil-poster-col .poster-card:hover {
+    transform: none;
+    cursor: default;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+}
+
+.applications-closed .katil-poster-col .poster-glow {
+    animation: none;
+    opacity: 0.2;
+}
+
+/* Sağ kolon: application-choice zaten mevcut, ama grid içindeyken padding'i azalt */
+.katil-grid .application-choice {
+    padding: 0;
+    text-align: left;
+}
+
+.katil-grid .choice-title {
+    font-size: 1.5rem;
+}
+
+.katil-grid .choice-subtitle {
+    margin-bottom: 1.5rem;
+}
+
+/* Kartları dikey alt alta + yatay ikon+metin yap */
+.katil-grid .choice-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 100%;
+}
+
+.katil-grid .choice-card {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    padding: 1.5rem;
+    gap: 1.25rem;
+}
+
+.katil-grid .choice-card .choice-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+/* Choice-card içinde h4, p, span için text wrapper — flex ile düzgün hizalasın */
+.katil-grid .choice-card h4,
+.katil-grid .choice-card p {
+    width: 100%;
+}
+
+.katil-grid .choice-card h4 {
+    font-size: 1.15rem;
+    margin-bottom: 0.25rem;
+}
+
+.katil-grid .choice-card p {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.katil-grid .choice-btn {
+    margin-top: 0;
+    align-self: flex-start;
+}
+
+/* Başvurular kapalıyken hover efekti tamamen kalksın */
+.applications-closed .katil-grid .choice-card,
+.applications-closed .katil-grid .choice-card:hover {
+    transform: none;
+    border-color: var(--border);
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.applications-closed .katil-grid .choice-card:hover .choice-btn {
+    transform: none;
+}
+
+/* Responsive: mobilde alt alta */
+@media (max-width: 900px) {
+    .katil-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .katil-poster-col {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .katil-grid .choice-card {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+    
+    .katil-grid .choice-card .choice-icon {
+        margin-bottom: 0.5rem;
+    }
+    
+    .katil-grid .choice-btn {
+        align-self: center;
+    }
+    
+    .katil-grid .application-choice {
+        text-align: center;
+    }
+}
+
+/* ============================================
+   KATIL — Sağ kolon: başvuru seçenekleri + sonuçlar
+   ============================================ */
+
+   .katil-right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+}
+
+.katil-results-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+.katil-results-cta .poster-results {
+    font-size: 0.9rem;
+    padding: 0.7rem 1.5rem;
+}
+
+.katil-results-cta .poster-deadline-accent {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--accent-blue);
+}
+
+/* Responsive: mobilde de ortala */
+@media (max-width: 900px) {
+    .katil-results-cta {
+        padding-top: 1.5rem;
+    }
+}
+
+/* ============================================
+   Event Card — Afiş Desteği
+   ============================================ */
+
+/* Afiş görseli event-cover içinde tam kaplar, 
+   alttaki emoji ile üst üste biner (afiş varsa emoji görünmez) */
+   .event-cover-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top; /* Afişin üst kısmı kesilmesin */
+    z-index: 1;
+}
+
+/* Afiş varsa emoji'yi gizle */
+.event-cover:has(.event-cover-img:not([style*="display: none"])) .event-cover-icon {
+    display: none;
+}
+
+/* Afiş varsa gradient arka planı da gizle (afiş zaten dolduruyor) */
+.event-cover:has(.event-cover-img:not([style*="display: none"])) {
+    background: #f0f0f5; /* afiş yüklenirken fallback */
+}
+
+/* Tarih badge'i afişin üstünde görünsün */
+.event-date-badge {
+    z-index: 3;
+}
+
+/* Beyaza fade eden alt kısım afişin üstünde de çalışsın */
+.event-cover::after {
+    z-index: 2;
+}
+
+/* Afişin üstündeyken emoji'yi silmeden yumuşak gizle (fallback) */
+.event-cover-img + .event-cover-icon {
+    display: none;
+}
+
+/* ============================================
+   Event Card — Afiş Desteği
+   ============================================ */
+
+/* event-cover'da afiş img'i absolute dursun, flex akışından çıksın */
+.event-cover-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    z-index: 1;
+    pointer-events: none;
+    display: block;
+}
+
+/* Afiş varsa emoji görünmesin */
+.event-cover:has(.event-cover-img) .event-cover-icon {
+    display: none;
+}
+
+/* Badge ve fade afişin üstünde */
+.event-date-badge { z-index: 3; }
+.event-cover::after { z-index: 2; }
