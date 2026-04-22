@@ -1882,13 +1882,9 @@ document.getElementById('contactForm').addEventListener('submit', async function
           </div>
           <div class="sl-card">
             <label class="sl-label">📋 Setlist Kaynağı</label>
-            <select id="sl-sheet-sec" class="sl-input" onchange="slSheetSec()">
+            <select id="sl-sheet-sec" class="sl-input" title="Kaynak sunucuda yapılandırılır" disabled>
               <option value="preset">2025-2026 Bahar Setlisti</option>
-              <option value="custom">Özel Link Gir...</option>
             </select>
-            <input id="sl-sheet-url" class="sl-input" type="text"
-              placeholder="https://docs.google.com/spreadsheets/..."
-              style="display:none; margin-top:8px;">
           </div>
           <div class="sl-card">
             <label class="sl-label">✗ Gelmeyecekler</label>
@@ -1951,15 +1947,51 @@ document.getElementById('contactForm').addEventListener('submit', async function
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script>
-  const SHEET_URL = "https://docs.google.com/spreadsheets/d/1GRzr5KYAYhdZQE0tVPpOHdww8X06Tp95C2XfupvZOhM/export?format=csv&gid=200584994";
+  /** Apps Script Web App URL (Deploy sonrası yapıştırın). setlist-apps-script/Code.gs */
+  const SETLIST_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6mTxeYUVk5i-6OJcwcT72ORua7XZXi14D3Dk-gt_dJFoDHl4YDAutQNVNF9UMJTQb/exec';
+
+  let slSessionToken = null;
+  let slAuthInFlight = false;
+
+  function slGetClientId() {
+    try {
+      if (!sessionStorage.getItem('slClientId')) {
+        sessionStorage.setItem('slClientId', (crypto.randomUUID && crypto.randomUUID()) || String(Date.now()) + Math.random());
+      }
+      return sessionStorage.getItem('slClientId');
+    } catch (_) {
+      return 'noss';
+    }
+  }
+
+  async function slApiPost(payload) {
+    if (!SETLIST_SCRIPT_URL || SETLIST_SCRIPT_URL.indexOf('PASTE_YOUR') !== -1) {
+      throw new Error('Şarkı Sıralayıcı henüz yapılandırılmamış (SETLIST_SCRIPT_URL).');
+    }
+    const res = await fetch(SETLIST_SCRIPT_URL, {
+      method: 'POST',
+      redirect: 'follow',
+      body: JSON.stringify(payload),
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+    });
+    const text = await res.text();
+    if (!res.ok) throw new Error('Sunucuya ulaşılamadı (HTTP ' + res.status + ').');
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (_) {
+      throw new Error('Sunucu yanıtı okunamadı. Web App URL ve dağıtımı kontrol edin.');
+    }
+    if (!data.ok) throw new Error(data.error || 'İstek başarısız.');
+    return data;
+  }
+
   const PUANLAR = {
     "Vokal":200,"Lead Elektro Gitar":200,"Elektro Gitar 2":200,
     "Gitar 1":200,"Gitar 2":200,"Klavye 1":190,"Klavye 2":190,
     "Bass Gitar":150,"Davul":250,"Perküsyon":20,"Flüt":150,
     "Keman":150,"Back Vokal 1":30,"Back Vokal 2":30,"Back Vokal 3":30
   };
-  const CORRECT_PIN = "1773";
-
   let slGelmeyecekler = [];
   let slGecGelenler   = {};
   let slErkenGidenler = {};
@@ -1984,6 +2016,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
 }
 
 function kapat(id) {
+    if (id === 'setlistApp') slSessionToken = null;
     const el = document.getElementById(id);
     const inner = el.querySelector('.sl-pin-box, .sl-app-box');
     el.style.transition = 'opacity 0.2s ease';
@@ -2019,31 +2052,41 @@ function kapat(id) {
     });
   });
 
-  function dogrulaPIN() {
+  async function dogrulaPIN() {
     const digits = document.querySelectorAll('.sl-pin-digit');
     const giris = [...digits].map(d => d.value).join('');
-    if (giris === CORRECT_PIN) {
-        kapat('setlistPinModal');
-        setTimeout(() => {
-            const app = document.getElementById('setlistApp');
-            app.style.display = 'flex';
-            app.style.opacity = '0';
-            app.querySelector('.sl-app-box').style.transform = 'scale(0.95) translateY(20px)';
-            requestAnimationFrame(() => {
-                app.style.transition = 'opacity 0.3s ease';
-                app.querySelector('.sl-app-box').style.transition = 'transform 0.3s ease';
-                app.style.opacity = '1';
-                app.querySelector('.sl-app-box').style.transform = 'scale(1) translateY(0)';
-    });
-}, 220);
-    } else {
-      digits.forEach(d => d.classList.add('sl-pin-wrong'));
-      document.getElementById('pinError').textContent = 'Yanlış PIN.';
+    if (giris.length !== 4 || slAuthInFlight) return;
+
+    slAuthInFlight = true;
+    document.getElementById('pinError').textContent = 'Kontrol ediliyor...';
+
+    try {
+      const data = await slApiPost({ action: 'auth', pin: giris, clientId: slGetClientId() });
+      slSessionToken = data.token;
+      document.getElementById('pinError').textContent = '';
+      kapat('setlistPinModal');
       setTimeout(() => {
-        digits.forEach(d => { d.classList.remove('sl-pin-wrong'); d.value=''; });
+        const app = document.getElementById('setlistApp');
+        app.style.display = 'flex';
+        app.style.opacity = '0';
+        app.querySelector('.sl-app-box').style.transform = 'scale(0.95) translateY(20px)';
+        requestAnimationFrame(() => {
+          app.style.transition = 'opacity 0.3s ease';
+          app.querySelector('.sl-app-box').style.transition = 'transform 0.3s ease';
+          app.style.opacity = '1';
+          app.querySelector('.sl-app-box').style.transform = 'scale(1) translateY(0)';
+        });
+      }, 220);
+    } catch (e) {
+      digits.forEach(d => d.classList.add('sl-pin-wrong'));
+      document.getElementById('pinError').textContent = e.message || 'Yanlış PIN.';
+      setTimeout(() => {
+        digits.forEach(d => { d.classList.remove('sl-pin-wrong'); d.value = ''; });
         digits[0].focus();
         document.getElementById('pinError').textContent = '';
       }, 900);
+    } finally {
+      slAuthInFlight = false;
     }
   }
 
@@ -2105,28 +2148,6 @@ function kapat(id) {
 
 let slAlternatifler = [];
 let slAktifTab = 0;
-function slSheetSec() {
-    const sec = document.getElementById('sl-sheet-sec').value;
-    document.getElementById('sl-sheet-url').style.display = sec === 'custom' ? 'block' : 'none';
-}
-
-function slAktifUrl() {
-    const sec = document.getElementById('sl-sheet-sec').value;
-    if (sec === 'custom') {
-        const url = document.getElementById('sl-sheet-url').value.trim();
-        if (!url) throw new Error("Lütfen bir Google Sheets linki girin.");
-        // Drive export linkine çevir
-        const match = url.match(/\/d\/([\w-]+)/);
-        const gidMatch = url.match(/gid=(\d+)/);
-        if (match) {
-            const id = match[1];
-            const gid = gidMatch ? gidMatch[1] : '0';
-            return `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}`;
-        }
-        return url; // direkt export linki girdiyse olduğu gibi kullan
-    }
-    return SHEET_URL;
-}
 
 function annotate(rows, gelmeyenler, gecGelenler, erkenGidenler, sarkiSure) {
     return rows.map(row => {
@@ -2249,7 +2270,7 @@ function yeniSirala(rows, gelmeyenler, gecGelenler, erkenGidenler, sarkiSure) {
     ];
 }
 
-function slCalistir() {
+async function slCalistir() {
     const btn = document.querySelector('.sl-run-btn');
     const errEl = document.getElementById('sl-error');
     btn.disabled = true;
@@ -2258,29 +2279,32 @@ function slCalistir() {
 
     const sarkiSure = parseInt(document.getElementById('sl-sarki-sure').value) || 6;
 
-    let fetchUrl;
-        try { fetchUrl = slAktifUrl(); } catch(e) {
-            errEl.textContent = '⚠️ ' + e.message;
-            btn.disabled = false;
-            document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
-            return;
-        }
-        fetch(fetchUrl)
-        .then(r => { if (!r.ok) throw new Error("Sheet'e erişilemedi."); return r.text(); })
-        .then(csv => {
-            const rows = Papa.parse(csv, { header: true, skipEmptyLines: true }).data;
-            if (!rows || rows.length === 0) throw new Error("Veri yüklenemedi.");
-            slAlternatifler = yeniSirala(rows, slGelmeyecekler, slGecGelenler, slErkenGidenler, sarkiSure);
-            slAktifTab = 0;
-            slGoster();
-            btn.disabled = false;
-            document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
-        })
-        .catch(e => {
-            errEl.textContent = '⚠️ ' + e.message;
-            btn.disabled = false;
-            document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
-        });
+    if (!slSessionToken) {
+      errEl.textContent = '⚠️ Oturum yok. PIN ile tekrar giriş yapın.';
+      btn.disabled = false;
+      document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
+      return;
+    }
+
+    try {
+      const data = await slApiPost({ action: 'sheetCsv', token: slSessionToken });
+      const csv = data.csv;
+      if (!csv || typeof csv !== 'string') throw new Error('Veri alınamadı.');
+      const rows = Papa.parse(csv, { header: true, skipEmptyLines: true }).data;
+      if (!rows || rows.length === 0) throw new Error('Veri yüklenemedi.');
+      slAlternatifler = yeniSirala(rows, slGelmeyecekler, slGecGelenler, slErkenGidenler, sarkiSure);
+      slAktifTab = 0;
+      slGoster();
+    } catch (e) {
+      errEl.textContent = '⚠️ ' + (e.message || 'Hata');
+      if (e.message && (e.message.indexOf('Oturum') !== -1 || e.message.indexOf('geçersiz') !== -1)) {
+        slSessionToken = null;
+        kapat('setlistApp');
+      }
+    } finally {
+      btn.disabled = false;
+      document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
+    }
 }
 
 function slTabSec(idx) {
