@@ -21,7 +21,8 @@
     <nav id="navbar">
         <div class="nav-inner">
             <a href="#" class="logo">
-                <img src="assets/logo.png" alt="BMK Logo" class="logo-img">
+                <img src="assets/logo-white.png" alt="BMK Logo" class="logo-img logo-img--white">
+                <img src="assets/logo.png" alt="BMK Logo" class="logo-img logo-img--dark">
             </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#hakkimizda">Hakkımızda</a></li>
@@ -152,7 +153,7 @@
             <a href="bahar-konseri.html" class="event-card-link">
                 <div class="event-card">
                     <div class="event-cover mixed">
-                        <img src="assets/posters/bahar-konseri.png" alt="" class="event-cover-img" onerror="this.remove()">
+                        <img src="assets/posters/med belirgin.jpg.jpeg" alt="" class="event-cover-img event-cover-img--bottom" onerror="this.remove()">
                         <span class="event-cover-icon">🎤</span>
                         <div class="event-date-badge">22 Mayıs</div>
                     </div>
@@ -1337,7 +1338,8 @@
             <div class="footer-top">
                 <div class="footer-brand">
                     <a href="#" class="logo">
-                        <img src="assets/logo.png" alt="BMK Logo" class="logo-img">
+                        <img src="assets/logo-white.png" alt="BMK Logo" class="logo-img logo-img--white">
+                        <img src="assets/logo.png" alt="BMK Logo" class="logo-img logo-img--dark">
                     </a>
                     <p>2004'ten bu yana İTÜ'nün müzik tutkusu. Batı Müziği Kulübü olarak müziği seven herkesi bir araya getiriyoruz.</p>
                 </div>
@@ -1402,6 +1404,8 @@
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
+                // Close mobile menu when a nav link is clicked
+                document.getElementById('navMenu')?.classList.remove('active');
                 const href = this.getAttribute('href');
                 if (!href || href === '#') {
                     e.preventDefault();

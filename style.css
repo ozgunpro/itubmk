@@ -41,6 +41,10 @@ a {
     text-decoration: none;
 }
 
+a, button {
+    -webkit-tap-highlight-color: transparent;
+}
+
 /* === Ambient Background === */
 .ambient-bg {
     position: fixed;
@@ -105,6 +109,12 @@ nav.scrolled {
     width: auto;
 }
 
+.logo-img--white { display: inline-block; }
+.logo-img--dark { display: none; }
+
+#navbar.scrolled .logo-img--white { display: none; }
+#navbar.scrolled .logo-img--dark { display: inline-block; }
+
 .nav-menu {
     display: flex;
     align-items: center;
@@ -167,9 +177,13 @@ nav.scrolled {
 .mobile-toggle span {
     width: 24px;
     height: 2px;
-    background: var(--text-primary);
+    background: var(--bg-primary);
     border-radius: 2px;
     transition: all 0.3s ease;
+}
+
+.scrolled .mobile-toggle span {
+    background: var(--text-primary);
 }
 
 /* === Butonlar === */
@@ -1935,24 +1949,6 @@ footer {
     .form-group.full { grid-column: span 1; }
 }
 
-@media (max-width: 992px) {
-    .nav-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(250, 250, 250, 0.98);
-        backdrop-filter: blur(20px);
-        flex-direction: column;
-        padding: 2rem;
-        gap: 1.5rem;
-        border-bottom: 1px solid var(--border);
-    }
-    .nav-menu.active { display: flex; }
-    .mobile-toggle { display: flex; }
-}
-
 @media (max-width: 768px) {
     .bento-grid { grid-template-columns: 1fr; }
     .bento-card.span-2 { grid-column: span 1; }
@@ -2234,6 +2230,7 @@ footer {
     -webkit-backdrop-filter: none;
     box-shadow: none;
     transition: background-color 0.35s ease, box-shadow 0.35s ease;
+    background: linear-gradient(180deg,#0000004d,#0000);
 }
 
 #navbar.scrolled {
@@ -2254,19 +2251,16 @@ footer {
 #navbar .nav-menu a {
     display: inline-block;
     padding: 0.5rem 1.1rem;
-    background: rgba(255, 255, 255, 0.92);
-    color: #1a1a1a !important;
+    background: transparent;
+    color: var(--bg-primary) !important;
     font-weight: 600;
     text-decoration: none;
     border-radius: 999px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
     text-shadow: none !important;
     transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, padding 0.3s ease;
 }
 
 #navbar .nav-menu a:hover {
-    background: #ffffff;
-    transform: translateY(-1px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
 }
 
@@ -2292,6 +2286,27 @@ footer {
     margin: 0;
     padding: 0;
     align-items: center;
+}
+
+@media (max-width: 992px) {
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .scrolled .nav-menu {
+        background: rgba(250, 250, 250, 0.98);
+    }
+    .nav-menu.active { display: flex; }
+    .mobile-toggle { display: flex; }
 }
 
 /* Ambient orb'ları kaldır */
@@ -2999,6 +3014,11 @@ footer {
     z-index: 1;
     pointer-events: none;
     display: block;
+}
+
+/* Use for posters where lower area should stay visible */
+.event-cover-img--bottom {
+    object-position: center bottom;
 }
 
 /* Afiş varsa emoji görünmesin */

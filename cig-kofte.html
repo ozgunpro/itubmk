@@ -21,7 +21,8 @@
     <nav id="navbar" class="scrolled">
         <div class="nav-inner">
             <a href="index.html" class="logo">
-                <img src="assets/logo.png" alt="BMK Logo" class="logo-img">
+                <img src="assets/logo-white.png" alt="BMK Logo" class="logo-img logo-img--white">
+                <img src="assets/logo.png" alt="BMK Logo" class="logo-img logo-img--dark">
             </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="index.html#hakkimizda">Hakkımızda</a></li>
@@ -158,6 +159,21 @@
     </footer>
 
     <script>
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (mobileToggle && navMenu) {
+            mobileToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+
         function handleRegister() {
             // TODO: Kayıt formuna yönlendirme eklenecek
             alert('Kayıt formu yakında açılacak!');
