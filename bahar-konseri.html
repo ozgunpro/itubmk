@@ -60,7 +60,7 @@
                 <div class="event-detail-poster-wrapper">
                     <div class="event-detail-poster">
                         <div class="event-detail-poster-glow"></div>
-                        <img src="assets/posters/med belirgin.jpg.jpeg" 
+                            <img src="assets/posters/renk.jpg" 
                              alt="Bahar Konseri Afişi" 
                              class="event-detail-poster-image"
                              onerror="this.style.display='none'; this.parentElement.classList.add('poster-placeholder'); this.parentElement.innerHTML='<div class=\'poster-placeholder-content\'><span>🌸</span><p>Afiş yakında</p></div>';">
@@ -82,7 +82,7 @@
                             <div class="event-info-icon">⏰</div>
                             <div class="event-info-text">
                                 <span class="event-info-label">Saat</span>
-                                <strong>19:00</strong>
+                                <strong>18:30</strong>
                             </div>
                         </div>
                         <div class="event-info-card">
@@ -125,20 +125,9 @@
                                 <span class="highlight-icon">🎹</span>
                                 <span>Sizlerle oluşturacağımız Bahar Konseri fotoğraf albümü</span>
                             </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🌸</span>
-                                <span>Hatıra bilekliği</span>
-                            </div>
                         </div>
                     </div>
 
-                    <!-- CTA -->
-                    <div class="event-detail-cta">
-                        <button class="btn btn-primary event-register-btn" onclick="handleRegister()">
-                            <span>🎟️</span> Hemen Kaydol
-                        </button>
-                        <p class="event-cta-note">Kayıt ücretsizdir, zorunlu değildir. Hatıra bilekliği alabilmek için kaydolabilirsiniz.</p>
-                    </div>
                 </div>
             </div>
 
@@ -168,25 +157,56 @@
     </footer>
 
     <script>
+        const navbar = document.getElementById('navbar');
         const mobileToggle = document.getElementById('mobileToggle');
         const navMenu = document.getElementById('navMenu');
+        const baseNavbarScrolled = navbar?.classList.contains('scrolled');
+        const mobileQuery = window.matchMedia('(max-width: 992px)');
+        let lastScrolled = baseNavbarScrolled;
+
+        function setNavbarScrolled(shouldScroll) {
+            if (!navbar || shouldScroll === lastScrolled) return;
+            if (shouldScroll) {
+                navbar.classList.add('scrolled');
+                navbar.classList.remove('navbar-fade-out');
+            } else {
+                navbar.classList.remove('scrolled');
+                navbar.classList.add('navbar-fade-out');
+            }
+            lastScrolled = shouldScroll;
+        }
+
+        function syncNavbarState() {
+            if (!navbar) return;
+            const isMobile = mobileQuery.matches;
+            if (!isMobile) navMenu?.classList.remove('active');
+            const menuActive = isMobile && navMenu?.classList.contains('active');
+            setNavbarScrolled(baseNavbarScrolled || menuActive);
+        }
+
+        navbar?.addEventListener('animationend', (event) => {
+            if (event.animationName === 'navbarFadeOut') {
+                navbar.classList.remove('navbar-fade-out');
+            }
+        });
 
         if (mobileToggle && navMenu) {
             mobileToggle.addEventListener('click', () => {
                 navMenu.classList.toggle('active');
+                syncNavbarState();
             });
 
             navMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     navMenu.classList.remove('active');
+                    syncNavbarState();
                 });
             });
         }
 
-        function handleRegister() {
-            // TODO: Kayıt formuna yönlendirme eklenecek
-            alert('Kayıt formu yakında açılacak!');
-        }
+        syncNavbarState();
+        window.addEventListener('resize', syncNavbarState);
+
     </script>
 </body>
 </html>
