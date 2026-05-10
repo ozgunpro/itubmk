@@ -436,6 +436,17 @@ section { padding: 7rem 2rem; }
     align-items: center;
 }
 
+.hero-poster-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    max-width: 400px;
+}
+
+.hero-poster-link .poster-card {
+    cursor: pointer;
+}
 .poster-card {
     position: relative;
     border-radius: 24px;
@@ -652,6 +663,29 @@ section { padding: 7rem 2rem; }
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 1.5rem;
+}
+
+/* Tüm event kartları aynı yükseklikte olsun */
+.events-grid .event-card-link {
+    display: flex;
+    height: 100%;
+}
+
+.events-grid .event-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.events-grid .event-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Açıklama metni esnesin, meta her zaman en altta dursun */
+.events-grid .event-card p {
+    flex: 1;
 }
 
 .event-card {
@@ -2456,7 +2490,6 @@ footer {
 
 .event-detail-poster {
     position: relative;
-    aspect-ratio: 3 / 4;
     border-radius: 20px;
     overflow: hidden;
     background: linear-gradient(135deg, rgba(232, 106, 106, 0.1), rgba(58, 139, 168, 0.1));
@@ -2475,8 +2508,7 @@ footer {
 
 .event-detail-poster-image {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
 }
 
@@ -2988,48 +3020,6 @@ footer {
    Event Card — Afiş Desteği
    ============================================ */
 
-/* Afiş görseli event-cover içinde tam kaplar, 
-   alttaki emoji ile üst üste biner (afiş varsa emoji görünmez) */
-   .event-cover-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top; /* Afişin üst kısmı kesilmesin */
-    z-index: 1;
-}
-
-/* Afiş varsa emoji'yi gizle */
-.event-cover:has(.event-cover-img:not([style*="display: none"])) .event-cover-icon {
-    display: none;
-}
-
-/* Afiş varsa gradient arka planı da gizle (afiş zaten dolduruyor) */
-.event-cover:has(.event-cover-img:not([style*="display: none"])) {
-    background: #f0f0f5; /* afiş yüklenirken fallback */
-}
-
-/* Tarih badge'i afişin üstünde görünsün */
-.event-date-badge {
-    z-index: 3;
-}
-
-/* Beyaza fade eden alt kısım afişin üstünde de çalışsın */
-.event-cover::after {
-    z-index: 2;
-}
-
-/* Afişin üstündeyken emoji'yi silmeden yumuşak gizle (fallback) */
-.event-cover-img + .event-cover-icon {
-    display: none;
-}
-
-/* ============================================
-   Event Card — Afiş Desteği
-   ============================================ */
-
 /* event-cover'da afiş img'i absolute dursun, flex akışından çıksın */
 .event-cover-img {
     position: absolute;
@@ -3057,3 +3047,246 @@ footer {
 /* Badge ve fade afişin üstünde */
 .event-date-badge { z-index: 3; }
 .event-cover::after { z-index: 2; }
+/* ============================================
+   Bahar Konseri — İki Afiş Yan Yana Layout
+   ============================================ */
+
+/* Stacked layout: üstte afişler, altta tam genişlik içerik */
+.event-detail-stacked {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+/* İki afiş yan yana */
+.event-detail-posters-duo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Stacked layout içindeki info-cards 4 sütun olsun (geniş alan kullanılsın) */
+.event-detail-stacked .event-info-cards {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Stacked layout içindeki highlight-grid 3 sütun olsun */
+.event-detail-stacked .highlight-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .event-detail-stacked .event-info-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .event-detail-stacked .highlight-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .event-detail-posters-duo {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .event-detail-stacked .event-info-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   Bahar Konseri — Etkinlik Programı Tablosu
+   ============================================ */
+
+   .event-detail-program h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.event-detail-program .program-intro {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.program-table-wrapper {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.program-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.program-table thead th {
+    background: rgba(232, 106, 106, 0.06);
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.78rem;
+    text-align: left;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.program-table tbody td {
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-primary);
+    vertical-align: middle;
+}
+
+.program-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.program-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.program-table tbody tr:hover {
+    background: rgba(232, 106, 106, 0.04);
+}
+
+.program-time {
+    font-weight: 600;
+    color: var(--accent-coral);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.program-act {
+    color: var(--text-primary);
+}
+
+.program-detail {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+}
+
+/* Mobilde tablo: yatay scroll yerine kart benzeri görünüm */
+@media (max-width: 640px) {
+    .program-table thead {
+        display: none;
+    }
+    
+    .program-table,
+    .program-table tbody,
+    .program-table tr,
+    .program-table td {
+        display: block;
+        width: 100%;
+    }
+    
+    .program-table tbody tr {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border);
+    }
+    
+    .program-table tbody tr:last-child {
+        border-bottom: none;
+    }
+    
+    .program-table tbody td {
+        padding: 0.3rem 0;
+        border: none;
+    }
+    
+    .program-time {
+        font-size: 0.85rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .program-act {
+        font-size: 1rem;
+    }
+}
+/* ============================================
+   Bahar Konseri — Afişlerin Yanındaki Logolar
+   ============================================ */
+
+/* Posters-duo grid'ini güncelle: 4 sütun (logo | afiş | afiş | logo) */
+.event-detail-posters-duo {
+    grid-template-columns: 1fr auto auto 1fr;
+    align-items: center;
+    max-width: 1200px;
+    gap: 2rem;
+}
+
+/* Afişler ortada, kendi içlerinde 1fr 1fr yerine sabit kalsın */
+.event-detail-posters-duo .event-detail-poster {
+    width: 100%;
+    max-width: 380px;
+}
+
+.event-side-logo {
+    width: 100%;
+    max-width: 140px;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.9;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
+}
+
+.event-side-logo:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.event-side-logo--left {
+    justify-self: end;
+    padding-right: 1rem;
+}
+
+.event-side-logo--right {
+    justify-self: start;
+    padding-left: 1rem;
+}
+
+/* Tablet: logolar küçülsün */
+@media (max-width: 1100px) {
+    .event-detail-posters-duo {
+        gap: 1.25rem;
+    }
+    
+    .event-side-logo {
+        max-width: 100px;
+    }
+}
+
+/* Dar tablet: logolar gizlensin (afişler nefes alsın) */
+@media (max-width: 900px) {
+    .event-detail-posters-duo {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .event-side-logo {
+        display: none;
+    }
+}
+
+.event-detail-subtitle {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-weight: 500;
+    color: var(--accent-coral);
+    margin: 0.25rem 0 0.75rem;
+    letter-spacing: 0.02em;
+}

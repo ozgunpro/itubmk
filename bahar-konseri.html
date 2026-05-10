@@ -51,23 +51,35 @@
             <div class="event-detail-header">
                 <span class="event-type konser">Konser</span>
                 <h1 class="event-detail-title">Bahar Konseri</h1>
+                <h2 class="event-detail-subtitle">EDM Ortaklığıyla</h2>
                 <p class="event-detail-tagline">Baharın gelişini birlikte kutlayalım.</p>
             </div>
 
-            <!-- Ana içerik: afiş + bilgi -->
-            <div class="event-detail-grid">
-                <!-- Sol: Afiş -->
-                <div class="event-detail-poster-wrapper">
+            <!-- Ana içerik: 2 afiş üstte yan yana, açıklamalar altta -->
+            <div class="event-detail-stacked">
+                <!-- Üst: İki afiş yan yana, kenarlarda kulüp logoları -->
+                <div class="event-detail-posters-duo">
+                    <img src="assets/logo.png" alt="BMK Logo" class="event-side-logo event-side-logo--left">
+                    
                     <div class="event-detail-poster">
                         <div class="event-detail-poster-glow"></div>
-                            <img src="assets/posters/renk.jpg" 
-                             alt="Bahar Konseri Afişi" 
-                             class="event-detail-poster-image"
-                             onerror="this.style.display='none'; this.parentElement.classList.add('poster-placeholder'); this.parentElement.innerHTML='<div class=\'poster-placeholder-content\'><span>🌸</span><p>Afiş yakında</p></div>';">
+                        <img src="assets/posters/renk.png" 
+                            alt="Bahar Konseri Afişi" 
+                            class="event-detail-poster-image"
+                            onerror="this.style.display='none'; this.parentElement.classList.add('poster-placeholder'); this.parentElement.innerHTML='<div class=\'poster-placeholder-content\'><span>🌸</span><p>Afiş yakında</p></div>';">
                     </div>
+                    <div class="event-detail-poster">
+                        <div class="event-detail-poster-glow"></div>
+                        <img src="assets/posters/edm.png" 
+                            alt="Bahar Konseri EDM Afişi" 
+                            class="event-detail-poster-image"
+                            onerror="this.style.display='none'; this.parentElement.classList.add('poster-placeholder'); this.parentElement.innerHTML='<div class=\'poster-placeholder-content\'><span>🎧</span><p>Afiş yakında</p></div>';">
+                    </div>
+                    
+                    <img src="assets/gallery/edm_logo.png" alt="EDM Kulübü Logo" class="event-side-logo event-side-logo--right">
                 </div>
 
-                <!-- Sağ: Bilgiler -->
+                <!-- Alt: Bilgiler -->
                 <div class="event-detail-content">
                     <!-- Hızlı bilgi kartları -->
                     <div class="event-info-cards">
@@ -104,9 +116,37 @@
                     <!-- Açıklama -->
                     <div class="event-detail-description">
                         <h2>Etkinlik Hakkında</h2>
-                        <p>İTÜ Batı Müziği Kulübü olarak <strong>Bahar Konseri</strong>'nde bu defa <strong>MED</strong>'de buluşuyoruz!
-                             Baharın gelişini müzikle karşıladığımız bu geleneksel konserimizde, farklı tarzlarda şarkılar ve ekibimizle dolu dolu bir akşam sizi bekliyor.</p>
-                        <p>Pop, rock, alternatif ve daha fazlası — Batı Müziği Kulübü ekibinin aylarca üzerinde çalıştığı repertuvarı Merkezi Derslik A Binası'nın çimenlerinde paylaşacağız.</p>
+                        <p>Aylar süren disiplinli bir hazırlık sürecinin ardından, BMK ekibi olarak hazırladığımız geniş repertuvarı paylaşmaya hazırız. Sahne performanslarımızda poptan rocka, alternatiften güncel hitlere kadar müziğin pek çok farklı rengine yer vereceğiz.</p>
+                        <p>Gecenin akışında müziğin ritmi hiç düşmeyecek! Kulübümüzün 3 saatlik performansının hemen ardından, sahneyi gecenin enerjisini zirveye taşıyacak olan <strong>Elektronik Dans Müziği Kulübü</strong>'ne devrediyoruz.</p>
+                    </div>
+
+                    <!-- Etkinlik Programı -->
+                    <div class="event-detail-program">
+                        <h2>Etkinlik Programı</h2>
+                        <p class="program-intro">Aşağıdaki tabloda akşamın akışına dair detayları bulabilirsiniz:</p>
+                        <div class="program-table-wrapper">
+                            <table class="program-table">
+                                <thead>
+                                    <tr>
+                                        <th>Saat</th>
+                                        <th>Performans</th>
+                                        <th>Detay</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="program-time">18:30 – 21:30</td>
+                                        <td class="program-act"><strong>Batı Müziği Kulübü</strong></td>
+                                        <td class="program-detail">Pop, Rock ve Alternatif Repertuvarı</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="program-time">21:30 – 00:00</td>
+                                        <td class="program-act"><strong>EDM Kulübü</strong></td>
+                                        <td class="program-detail">Elektronik Dans Müziği & After Party</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- Ne sunuyoruz -->
@@ -115,11 +155,11 @@
                         <div class="highlight-grid">
                             <div class="highlight-item">
                                 <span class="highlight-icon">🎸</span>
-                                <span>Coşkulu bir şarkı listesi</span>
+                                <span>BMK Bahar Konseri</span>
                             </div>
                             <div class="highlight-item">
                                 <span class="highlight-icon">🎤</span>
-                                <span>Eğlenceli sahne performansları</span>
+                                <span>EDM Sahne Performansı</span>
                             </div>
                             <div class="highlight-item">
                                 <span class="highlight-icon">🎹</span>
@@ -127,7 +167,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
