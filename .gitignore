@@ -1,0 +1,12 @@
+# macOS sistem dosyaları
+.DS_Store
+**/.DS_Store
+
+# Büyük/orijinal video dosyaları
+*.MOV
+*.mov
+assets/videos/
+
+# Editör/IDE
+.vscode/
+.idea/

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İTÜ Batı Müziği Kulübü</title>
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
@@ -21,7 +21,8 @@
     <nav id="navbar">
         <div class="nav-inner">
             <a href="#" class="logo">
-                <img src="logo.png" alt="BMK Logo" class="logo-img">
+                <img src="assets/logo-white.png" alt="BMK Logo" class="logo-img logo-img--white">
+                <img src="assets/logo.png" alt="BMK Logo" class="logo-img logo-img--dark">
             </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#hakkimizda">Hakkımızda</a></li>
@@ -40,36 +41,41 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <!-- Background Image -->
+        <div class="hero-image-bg">
+            <img src="assets/gallery/hero-image.JPG" alt="" class="hero-bg-img">
+            <div class="hero-image-overlay"></div>
+        </div>
         <div class="hero-inner">
             <div class="hero-content">
-                <div class="hero-tag">
+                <div class="hero-tag hero-glass-pill">
                     <span class="dot"></span>
                     2004'ten Beri Müzikle Birlikte
                 </div>
-                <h1>Müziğin Kalbinde<br><span class="gradient">Bir Topluluk</span></h1>
-                <p class="hero-desc">İTÜ Batı Müziği Kulübü olarak 20 yılı aşkın süredir müzik tutkunlarını bir araya getiriyor, sahne deneyimi sunuyor ve unutulmaz anlar yaratıyoruz.</p>
+                <h1 class="hero-title-on-video">Müziğin Kalbinde<br><span class="gradient">Bir Topluluk</span></h1>
+                <p class="hero-desc hero-desc-on-video">İTÜ Batı Müziği Kulübü olarak 20 yılı aşkın süredir müzik tutkunlarını bir araya getiriyor, sahne deneyimi sunuyor ve unutulmaz anlar yaratıyoruz.</p>
                 <div class="hero-actions">
-                    <a href="#katil" class="btn btn-secondary" aria-disabled="true" tabindex="-1"><span>🎸</span> Başvurular Kapandı</a>
-                    <a href="#etkinlikler" class="btn btn-secondary"><span>📅</span> Etkinlikleri Keşfet</a>
+                    <a href="#etkinlikler" class="btn btn-primary"><span>📅</span> Etkinlikleri Keşfet</a>
+                    <a href="bahar-konseri.html" class="btn btn-secondary"><span>🌸</span> Bahar Konseri</a>
                 </div>
-                <p class="hero-note">Bu dönem başvurular kapandı. Önümüzdeki dönem görüşmek üzere.</p>
+                <p class="hero-note hero-note-on-video">Etkinliklerimiz hakkında bilgi edinmek için kaydır ↓</p>
             </div>
+        
+            <!-- Sağ taraf: Bahar Konseri Afişi -->
             <div class="hero-visual">
-                <div class="poster-card">
-                    <div class="poster-glow"></div>
-                    <img src="poster.png" alt="2026 Bahar Müzisyen Seçmeleri" class="poster-image">
-                    <div class="poster-badge">
-                        <span class="badge-dot"></span>
-                        Başvurular Sonuçlandı
+                <a href="bahar-konseri.html" class="hero-poster-link" aria-label="Bahar Konseri detay sayfasına git">
+                    <div class="poster-card">
+                        <div class="poster-glow"></div>
+                        <span class="poster-badge">
+                            <span class="badge-dot"></span>
+                            Yaklaşan Konser
+                        </span>
+                        <img src="assets/posters/renk.png" alt="Bahar Konseri Afişi" class="poster-image">
                     </div>
-                </div>
-                <p class="poster-deadline">Son başvuru: 16 Şubat 2026, 23:59</p>
-                <a href="sonuclar.html" class="btn btn-secondary poster-results" style="margin-top: 0.75rem; font-size: 0.9rem; padding: 0.7rem 1.5rem;">📋 Seçme Sonuçlarını Gör</a>
-                <p class="poster-deadline" style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--accent-blue);">Seçmeler önümüzdeki dönemin başında tekrar açılacaktır.</p>
+                </a>
             </div>
         </div>
     </section>
-
     <!-- About Section -->
     <section id="hakkimizda">
         <div class="section-inner">
@@ -113,34 +119,21 @@
         </div>
     </section>
 
-    <!-- Events Section -->
-    <section id="etkinlikler">
-        <div class="section-inner">
-            <div class="section-header">
-                <div class="section-tag">📅 Etkinlikler</div>
-                <h2 class="section-title">Yaklaşan Etkinlikler</h2>
-                <p class="section-desc">Konserlerden sosyal etkinliklere kadar birçok aktivite sizi bekliyor.</p>
-            </div>
-            <div class="events-grid">
-                <div class="event-card">
-                    <div class="event-cover lime">
-                        <span class="event-cover-icon">🥙</span>
-                        <div class="event-date-badge">Henüz Belirlenmedi</div>
-                    </div>
-                    <div class="event-body">
-                        <span class="event-type sosyal">Sosyal Etkinlik</span>
-                        <h3>Kimya Müh. Çiğ Köfte</h3>
-                        <p>Kimya Mühendisliği ile birlikte düzenlediğimiz geleneksel çiğ köfte etkinliği.</p>
-                        <div class="event-meta">
-                            <span>📍 İTÜ Hafıza Yolu</span>
-                            <span>⏰ 16:00</span>
-                        </div>
-                    </div>
-                </div>
+<!-- Events Section -->
+<section id="etkinlikler">
+    <div class="section-inner">
+        <div class="section-header">
+            <div class="section-tag">📅 Etkinlikler</div>
+            <h2 class="section-title">Yaklaşan Etkinlikler</h2>
+            <p class="section-desc">Konserlerden sosyal etkinliklere kadar birçok aktivite sizi bekliyor.</p>
+        </div>
+        <div class="events-grid">
+            <a href="taskisla-konseri.html" class="event-card-link">
                 <div class="event-card">
                     <div class="event-cover coral">
+                        <img src="assets/posters/taskisla.png" alt="" class="event-cover-img" onerror="this.remove()">
                         <span class="event-cover-icon">🎸</span>
-                        <div class="event-date-badge">7-8-9 Mayıs</div>
+                        <div class="event-date-badge">13 Mayıs</div>
                     </div>
                     <div class="event-body">
                         <span class="event-type konser">Konser</span>
@@ -148,44 +141,71 @@
                         <p>Taşkışla Kampüsü'nün tarihi atmosferinde unutulmaz bir konser deneyimi.</p>
                         <div class="event-meta">
                             <span>📍 İTÜ Taşkışla Kampüsü Orta Bahçe</span>
-                            <span>⏰ 19:00</span>
+                            <span>⏰ 17.30</span>
                         </div>
                     </div>
                 </div>
+            </a>
+
+            <a href="cig-kofte.html" class="event-card-link">
                 <div class="event-card">
-                    <div class="event-cover mixed">
-                        <span class="event-cover-icon">🎤</span>
-                        <div class="event-date-badge">Henüz Belirlenmedi</div>
+                    <div class="event-cover lime">
+                        <img src="assets/posters/cig-kofte.jpg" alt="" class="event-cover-img" onerror="this.remove()">
+                        <span class="event-cover-icon">🥙</span>
+                        <div class="event-date-badge">15 Mayıs</div>
                     </div>
                     <div class="event-body">
-                        <span class="event-type konser">Konser</span>
-                        <h3>Bahar Konseri</h3>
-                        <p>BMK'nın sahne alacağı, baharın gelişini kutladığımız geleneksel konserimiz.</p>
+                        <span class="event-type sosyal">Ortak Etkinlik</span>
+                        <h3>Kimya Müh. Çiğ Köfte</h3>
+                        <p>Kimya Mühendisliği ile birlikte düzenlediğimiz geleneksel çiğ köfte etkinliği.</p>
                         <div class="event-meta">
-                            <span>📍 İTÜ Havuz Binası Otoparkı</span>
-                            <span>⏰ 19:30</span>
+                            <span>📍 İTÜ Basket Sahaları</span>
+                            <span>⏰ 18:30</span>
                         </div>
                     </div>
                 </div>
+            </a>
+
+            <a href="bahar-konseri.html" class="event-card-link">
+                <div class="event-card">
+                    <div class="event-cover mixed">
+                        <img src="assets/posters/renk.png" alt="" class="event-cover-img event-cover-img" onerror="this.remove()">
+                        <span class="event-cover-icon">🎤</span>
+                        <div class="event-date-badge">16 Mayıs</div>
+                    </div>
+                    <div class="event-body">
+                        <span class="event-type konser">Ortak Konser</span>
+                        <h3>Bahar Konseri - EDM Ortaklığıyla</h3>
+                        <p>BMK'nın sahne alacağı, baharın gelişini kutladığımız geleneksel konserimiz.</p>
+                        <div class="event-meta">
+                            <span>📍 İTÜ Merkezi Derslik A Binası Çimenleri</span>
+                            <span>⏰ 18:30</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="klasik-muzik-gecesi.html" class="event-card-link">
                 <div class="event-card">
                     <div class="event-cover blue">
+                        <img src="assets/posters/klasik_afisi.png" alt="" class="event-cover-img" onerror="this.remove()">
                         <span class="event-cover-icon">🎻</span>
-                        <div class="event-date-badge">Henüz Belirlenmedi</div>
+                        <div class="event-date-badge">21 Mayıs</div>
                     </div>
                     <div class="event-body">
                         <span class="event-type klasik">Klasik Müzik</span>
-                        <h3>Klasik Müzik Konseri</h3>
+                        <h3>Klasik Müzik Gecesi</h3>
                         <p>Klasik müzik severler için özel olarak hazırlanmış zarif bir akşam.</p>
                         <div class="event-meta">
-                            <span>📍 İTÜ Mustafa Kemal Amfisi</span>
-                            <span>⏰ 19:00</span>
+                            <span>📍 İTÜ Gümüşsuyu Kampüsü Orhan Öcalgiray Amfisi</span>
+                            <span>⏰ 18:30</span>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
-    </section>
-
+    </div>
+</section>
     <!-- Geçmiş Etkinlikler Section -->
     <section id="gecmis">
         <div class="section-inner">
@@ -429,7 +449,23 @@
                 <div class="status-tag">Başvurular Kapandı</div>
             </div>
 
-            <!-- Başvuru Türü Seçimi -->
+    <!-- Afiş + Başvuru Seçenekleri Yan Yana -->
+    <div class="katil-grid">
+        <!-- Sol: Afiş -->
+        <div class="katil-poster-col">
+            <div class="poster-card">
+                <div class="poster-glow"></div>
+                <img src="assets/posters/poster.png" alt="2026 Bahar Müzisyen Seçmeleri" class="poster-image">
+                <div class="poster-badge">
+                    <span class="badge-dot"></span>
+                    Başvurular Sonuçlandı
+                </div>
+            </div>
+            <p class="poster-deadline">Son başvuru: 16 Şubat 2026, 23:59</p>
+        </div>
+
+        <!-- Sağ: Başvuru Türü Seçimi + Sonuçları Gör -->
+        <div class="katil-right-col">
             <div class="application-choice" id="applicationChoice">
                 <h3 class="choice-title">Hangi alandan başvurmak istiyorsunuz?</h3>
                 <p class="choice-subtitle">Dilerseniz her ikisinden de ayrı ayrı başvurabilirsiniz.</p>
@@ -450,6 +486,13 @@
                 </div>
             </div>
 
+            <!-- Sonuçları Gör CTA -->
+            <div class="katil-results-cta">
+                <a href="sonuclar.html" class="btn btn-secondary poster-results">📋 Seçme Sonuçlarını Gör</a>
+                <p class="poster-deadline poster-deadline-accent">Seçmeler önümüzdeki dönemin başında tekrar açılacaktır.</p>
+            </div>
+        </div>
+    </div>
             <!-- MÜZİSYEN BAŞVURU FORMU -->
             <div class="application-container" id="muzisyenForm" style="display: none;">
                 <button class="back-to-choice" onclick="showChoice()">← Geri Dön</button>
@@ -879,7 +922,6 @@
                     </form>
                 </div>
             </div>
-
             <!-- VOKAL BAŞVURU FORMU -->
             <div class="application-container" id="vokalForm" style="display: none;">
                 <button class="back-to-choice" onclick="showChoice()">← Geri Dön</button>
@@ -1314,7 +1356,8 @@
             <div class="footer-top">
                 <div class="footer-brand">
                     <a href="#" class="logo">
-                        <img src="logo.png" alt="BMK Logo" class="logo-img">
+                        <img src="assets/logo-white.png" alt="BMK Logo" class="logo-img logo-img--white">
+                        <img src="assets/logo.png" alt="BMK Logo" class="logo-img logo-img--dark">
                     </a>
                     <p>2004'ten bu yana İTÜ'nün müzik tutkusu. Batı Müziği Kulübü olarak müziği seven herkesi bir araya getiriyoruz.</p>
                 </div>
@@ -1364,15 +1407,48 @@
     </footer>
 
     <script>
-        // Navbar scroll effect
+        // Navbar scroll effect — hero geçildikten sonra fixed olur
         const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        const heroSec = document.querySelector('.hero');
+        const navMenu = document.getElementById('navMenu');
+        const mobileQuery = window.matchMedia('(max-width: 992px)');
+        let lastScrolled = null;
+
+        function setNavbarScrolled(shouldScroll) {
+            if (!navbar || shouldScroll === lastScrolled) return;
+            if (shouldScroll) {
+                navbar.classList.add('scrolled');
+                navbar.classList.remove('navbar-fade-out');
+            } else {
+                navbar.classList.remove('scrolled');
+                navbar.classList.add('navbar-fade-out');
+            }
+            lastScrolled = shouldScroll;
+        }
+
+        function updateNavbar() {
+            const threshold = heroSec ? heroSec.offsetHeight - 80 : 50;
+            const isMobile = mobileQuery.matches;
+            if (!isMobile) navMenu?.classList.remove('active');
+            const menuActive = isMobile && navMenu?.classList.contains('active');
+            setNavbarScrolled(window.scrollY > threshold || menuActive);
+        }
+
+        navbar?.addEventListener('animationend', (event) => {
+            if (event.animationName === 'navbarFadeOut') {
+                navbar.classList.remove('navbar-fade-out');
+            }
         });
 
+        window.addEventListener('scroll', updateNavbar, { passive: true });
+        window.addEventListener('resize', updateNavbar);
+        updateNavbar();
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
+                // Close mobile menu when a nav link is clicked
+                document.getElementById('navMenu')?.classList.remove('active');
+                updateNavbar();
                 const href = this.getAttribute('href');
                 if (!href || href === '#') {
                     e.preventDefault();
@@ -1397,6 +1473,7 @@
         // Mobile menu
         document.getElementById('mobileToggle').addEventListener('click', () => {
             document.getElementById('navMenu').classList.toggle('active');
+            updateNavbar();
         });
 
         // Application Form Choice Functions
@@ -1849,13 +1926,9 @@ document.getElementById('contactForm').addEventListener('submit', async function
           </div>
           <div class="sl-card">
             <label class="sl-label">📋 Setlist Kaynağı</label>
-            <select id="sl-sheet-sec" class="sl-input" onchange="slSheetSec()">
+            <select id="sl-sheet-sec" class="sl-input" title="Kaynak sunucuda yapılandırılır" disabled>
               <option value="preset">2025-2026 Bahar Setlisti</option>
-              <option value="custom">Özel Link Gir...</option>
             </select>
-            <input id="sl-sheet-url" class="sl-input" type="text"
-              placeholder="https://docs.google.com/spreadsheets/..."
-              style="display:none; margin-top:8px;">
           </div>
           <div class="sl-card">
             <label class="sl-label">✗ Gelmeyecekler</label>
@@ -1918,15 +1991,51 @@ document.getElementById('contactForm').addEventListener('submit', async function
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script>
-  const SHEET_URL = "https://docs.google.com/spreadsheets/d/1GRzr5KYAYhdZQE0tVPpOHdww8X06Tp95C2XfupvZOhM/export?format=csv&gid=200584994";
+  /** Apps Script Web App URL (Deploy sonrası yapıştırın). setlist-apps-script/Code.gs */
+  const SETLIST_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6mTxeYUVk5i-6OJcwcT72ORua7XZXi14D3Dk-gt_dJFoDHl4YDAutQNVNF9UMJTQb/exec';
+
+  let slSessionToken = null;
+  let slAuthInFlight = false;
+
+  function slGetClientId() {
+    try {
+      if (!sessionStorage.getItem('slClientId')) {
+        sessionStorage.setItem('slClientId', (crypto.randomUUID && crypto.randomUUID()) || String(Date.now()) + Math.random());
+      }
+      return sessionStorage.getItem('slClientId');
+    } catch (_) {
+      return 'noss';
+    }
+  }
+
+  async function slApiPost(payload) {
+    if (!SETLIST_SCRIPT_URL || SETLIST_SCRIPT_URL.indexOf('PASTE_YOUR') !== -1) {
+      throw new Error('Şarkı Sıralayıcı henüz yapılandırılmamış (SETLIST_SCRIPT_URL).');
+    }
+    const res = await fetch(SETLIST_SCRIPT_URL, {
+      method: 'POST',
+      redirect: 'follow',
+      body: JSON.stringify(payload),
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+    });
+    const text = await res.text();
+    if (!res.ok) throw new Error('Sunucuya ulaşılamadı (HTTP ' + res.status + ').');
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (_) {
+      throw new Error('Sunucu yanıtı okunamadı. Web App URL ve dağıtımı kontrol edin.');
+    }
+    if (!data.ok) throw new Error(data.error || 'İstek başarısız.');
+    return data;
+  }
+
   const PUANLAR = {
     "Vokal":200,"Lead Elektro Gitar":200,"Elektro Gitar 2":200,
     "Gitar 1":200,"Gitar 2":200,"Klavye 1":190,"Klavye 2":190,
     "Bass Gitar":150,"Davul":250,"Perküsyon":20,"Flüt":150,
     "Keman":150,"Back Vokal 1":30,"Back Vokal 2":30,"Back Vokal 3":30
   };
-  const CORRECT_PIN = "1773";
-
   let slGelmeyecekler = [];
   let slGecGelenler   = {};
   let slErkenGidenler = {};
@@ -1951,6 +2060,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
 }
 
 function kapat(id) {
+    if (id === 'setlistApp') slSessionToken = null;
     const el = document.getElementById(id);
     const inner = el.querySelector('.sl-pin-box, .sl-app-box');
     el.style.transition = 'opacity 0.2s ease';
@@ -1986,31 +2096,41 @@ function kapat(id) {
     });
   });
 
-  function dogrulaPIN() {
+  async function dogrulaPIN() {
     const digits = document.querySelectorAll('.sl-pin-digit');
     const giris = [...digits].map(d => d.value).join('');
-    if (giris === CORRECT_PIN) {
-        kapat('setlistPinModal');
-        setTimeout(() => {
-            const app = document.getElementById('setlistApp');
-            app.style.display = 'flex';
-            app.style.opacity = '0';
-            app.querySelector('.sl-app-box').style.transform = 'scale(0.95) translateY(20px)';
-            requestAnimationFrame(() => {
-                app.style.transition = 'opacity 0.3s ease';
-                app.querySelector('.sl-app-box').style.transition = 'transform 0.3s ease';
-                app.style.opacity = '1';
-                app.querySelector('.sl-app-box').style.transform = 'scale(1) translateY(0)';
-    });
-}, 220);
-    } else {
-      digits.forEach(d => d.classList.add('sl-pin-wrong'));
-      document.getElementById('pinError').textContent = 'Yanlış PIN.';
+    if (giris.length !== 4 || slAuthInFlight) return;
+
+    slAuthInFlight = true;
+    document.getElementById('pinError').textContent = 'Kontrol ediliyor...';
+
+    try {
+      const data = await slApiPost({ action: 'auth', pin: giris, clientId: slGetClientId() });
+      slSessionToken = data.token;
+      document.getElementById('pinError').textContent = '';
+      kapat('setlistPinModal');
       setTimeout(() => {
-        digits.forEach(d => { d.classList.remove('sl-pin-wrong'); d.value=''; });
+        const app = document.getElementById('setlistApp');
+        app.style.display = 'flex';
+        app.style.opacity = '0';
+        app.querySelector('.sl-app-box').style.transform = 'scale(0.95) translateY(20px)';
+        requestAnimationFrame(() => {
+          app.style.transition = 'opacity 0.3s ease';
+          app.querySelector('.sl-app-box').style.transition = 'transform 0.3s ease';
+          app.style.opacity = '1';
+          app.querySelector('.sl-app-box').style.transform = 'scale(1) translateY(0)';
+        });
+      }, 220);
+    } catch (e) {
+      digits.forEach(d => d.classList.add('sl-pin-wrong'));
+      document.getElementById('pinError').textContent = e.message || 'Yanlış PIN.';
+      setTimeout(() => {
+        digits.forEach(d => { d.classList.remove('sl-pin-wrong'); d.value = ''; });
         digits[0].focus();
         document.getElementById('pinError').textContent = '';
       }, 900);
+    } finally {
+      slAuthInFlight = false;
     }
   }
 
@@ -2072,28 +2192,6 @@ function kapat(id) {
 
 let slAlternatifler = [];
 let slAktifTab = 0;
-function slSheetSec() {
-    const sec = document.getElementById('sl-sheet-sec').value;
-    document.getElementById('sl-sheet-url').style.display = sec === 'custom' ? 'block' : 'none';
-}
-
-function slAktifUrl() {
-    const sec = document.getElementById('sl-sheet-sec').value;
-    if (sec === 'custom') {
-        const url = document.getElementById('sl-sheet-url').value.trim();
-        if (!url) throw new Error("Lütfen bir Google Sheets linki girin.");
-        // Drive export linkine çevir
-        const match = url.match(/\/d\/([\w-]+)/);
-        const gidMatch = url.match(/gid=(\d+)/);
-        if (match) {
-            const id = match[1];
-            const gid = gidMatch ? gidMatch[1] : '0';
-            return `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}`;
-        }
-        return url; // direkt export linki girdiyse olduğu gibi kullan
-    }
-    return SHEET_URL;
-}
 
 function annotate(rows, gelmeyenler, gecGelenler, erkenGidenler, sarkiSure) {
     return rows.map(row => {
@@ -2216,7 +2314,7 @@ function yeniSirala(rows, gelmeyenler, gecGelenler, erkenGidenler, sarkiSure) {
     ];
 }
 
-function slCalistir() {
+async function slCalistir() {
     const btn = document.querySelector('.sl-run-btn');
     const errEl = document.getElementById('sl-error');
     btn.disabled = true;
@@ -2225,29 +2323,32 @@ function slCalistir() {
 
     const sarkiSure = parseInt(document.getElementById('sl-sarki-sure').value) || 6;
 
-    let fetchUrl;
-        try { fetchUrl = slAktifUrl(); } catch(e) {
-            errEl.textContent = '⚠️ ' + e.message;
-            btn.disabled = false;
-            document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
-            return;
-        }
-        fetch(fetchUrl)
-        .then(r => { if (!r.ok) throw new Error("Sheet'e erişilemedi."); return r.text(); })
-        .then(csv => {
-            const rows = Papa.parse(csv, { header: true, skipEmptyLines: true }).data;
-            if (!rows || rows.length === 0) throw new Error("Veri yüklenemedi.");
-            slAlternatifler = yeniSirala(rows, slGelmeyecekler, slGecGelenler, slErkenGidenler, sarkiSure);
-            slAktifTab = 0;
-            slGoster();
-            btn.disabled = false;
-            document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
-        })
-        .catch(e => {
-            errEl.textContent = '⚠️ ' + e.message;
-            btn.disabled = false;
-            document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
-        });
+    if (!slSessionToken) {
+      errEl.textContent = '⚠️ Oturum yok. PIN ile tekrar giriş yapın.';
+      btn.disabled = false;
+      document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
+      return;
+    }
+
+    try {
+      const data = await slApiPost({ action: 'sheetCsv', token: slSessionToken });
+      const csv = data.csv;
+      if (!csv || typeof csv !== 'string') throw new Error('Veri alınamadı.');
+      const rows = Papa.parse(csv, { header: true, skipEmptyLines: true }).data;
+      if (!rows || rows.length === 0) throw new Error('Veri yüklenemedi.');
+      slAlternatifler = yeniSirala(rows, slGelmeyecekler, slGecGelenler, slErkenGidenler, sarkiSure);
+      slAktifTab = 0;
+      slGoster();
+    } catch (e) {
+      errEl.textContent = '⚠️ ' + (e.message || 'Hata');
+      if (e.message && (e.message.indexOf('Oturum') !== -1 || e.message.indexOf('geçersiz') !== -1)) {
+        slSessionToken = null;
+        kapat('setlistApp');
+      }
+    } finally {
+      btn.disabled = false;
+      document.getElementById('sl-btn-text').textContent = '🎵 Sırala';
+    }
 }
 
 function slTabSec(idx) {
