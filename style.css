@@ -2618,6 +2618,45 @@ footer {
     font-weight: 600;
 }
 
+.event-detail-description h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 1.5rem 0 0.75rem;
+}
+
+.event-program {
+    margin-top: 1.25rem;
+}
+
+.event-program-intro {
+    margin-bottom: 0.85rem;
+}
+
+.event-program-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.event-program-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event-program-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
 /* Highlights */
 .event-detail-highlights h3 {
     font-family: 'Syne', sans-serif;
