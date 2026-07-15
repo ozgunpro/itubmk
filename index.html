@@ -55,22 +55,22 @@
                 <h1 class="hero-title-on-video">Müziğin Kalbinde<br><span class="gradient">Bir Topluluk</span></h1>
                 <p class="hero-desc hero-desc-on-video">İTÜ Batı Müziği Kulübü olarak 20 yılı aşkın süredir müzik tutkunlarını bir araya getiriyor, sahne deneyimi sunuyor ve unutulmaz anlar yaratıyoruz.</p>
                 <div class="hero-actions">
-                    <a href="#etkinlikler" class="btn btn-primary"><span>📅</span> Etkinlikleri Keşfet</a>
-                    <a href="bahar-konseri.html" class="btn btn-secondary"><span>🌸</span> Bahar Konseri</a>
+                    <a href="#katil" class="btn btn-primary"><span>🎸</span> Aramıza Katıl</a>
+                    <a href="#etkinlikler" class="btn btn-secondary"><span>📅</span> Etkinlikleri Keşfet</a>
                 </div>
                 <p class="hero-note hero-note-on-video">Etkinliklerimiz hakkında bilgi edinmek için kaydır ↓</p>
             </div>
         
-            <!-- Sağ taraf: Bahar Konseri Afişi -->
+            <!-- Sağ taraf: Seçme Başvuru Afişi -->
             <div class="hero-visual">
-                <a href="bahar-konseri.html" class="hero-poster-link" aria-label="Bahar Konseri detay sayfasına git">
+                <a href="#katil" class="hero-poster-link" aria-label="Başvuru bölümüne git">
                     <div class="poster-card">
                         <div class="poster-glow"></div>
                         <span class="poster-badge">
                             <span class="badge-dot"></span>
-                            Yaklaşan Konser
+                            Başvurular Açık
                         </span>
-                        <img src="assets/posters/ortarenk.jpeg" alt="Bahar Konseri Afişi" class="poster-image">
+                        <img src="assets/posters/poster.png" alt="Seçme Başvuru Afişi" class="poster-image">
                     </div>
                 </a>
             </div>
@@ -429,28 +429,26 @@
                 <p class="section-desc">BMK'yı yöneten ve etkinliklerimizi organize eden ekibimizle tanışın.</p>
             </div>
             <div class="team-grid">
-                <div class="team-card"><div class="team-avatar">👤</div><h3>Özgün Yılmaz</h3><p class="team-role">Başkan</p></div>
-                <div class="team-card"><div class="team-avatar">👤</div><h3>Can Aktener</h3><p class="team-role">Başkan Yardımcısı</p></div>
-                <div class="team-card"><div class="team-avatar">👤</div><h3>Ufuktan Doğanay</h3><p class="team-role">Genel Sekreter</p></div>
-                <div class="team-card"><div class="team-avatar">👤</div><h3>Sude Büyükakın</h3><p class="team-role">Yazman</p></div>
-                <div class="team-card"><div class="team-avatar">👤</div><h3>Mirac Eylül Uysal</h3><p class="team-role">Sayman</p></div>
+                <div class="team-card"><div class="team-avatar">👤</div><h3>Zeynep Yaşar</h3><p class="team-role">Başkan</p></div>
+                <div class="team-card"><div class="team-avatar">👤</div><h3>İclal Tosun</h3><p class="team-role">Başkan Yardımcısı</p></div>
+                <div class="team-card"><div class="team-avatar">👤</div><h3>Eren Tahir Yazıcı</h3><p class="team-role">Genel Sekreter</p></div>
+                <div class="team-card"><div class="team-avatar">👤</div><h3>Kaan Şentürk</h3><p class="team-role">Yazman</p></div>
+                <div class="team-card"><div class="team-avatar">👤</div><h3>Muhammed Nusret Yavuz</h3><p class="team-role">Sayman</p></div>
             </div>
         </div>
     </section>
 
     <!-- Başvuru Form Section -->
-    <section id="katil" class="applications-closed">
+    <section id="katil">
         <div class="section-inner">
             <div class="section-header">
                 <div class="section-tag">🎸 Başvuru</div>
                 <h2 class="section-title">Bize Katıl</h2>
-                <p class="section-desc">2025-2026 Bahar Dönemi başvuruları kapandı.
-                    Önümüzdeki güz döneminde başvurular tekrardan açılacaktır. </p>
-                <div class="status-tag">Başvurular Kapandı</div>
+                <p class="section-desc">2026-2027 Güz Dönemi Seçmeleri için başvurunu yap!</p>
             </div>
 
     <!-- Afiş + Başvuru Seçenekleri Yan Yana -->
-    <div class="katil-grid">
+    <div class="katil-grid" id="katilGrid">
         <!-- Sol: Afiş -->
         <div class="katil-poster-col">
             <div class="poster-card">
@@ -458,18 +456,18 @@
                 <img src="assets/posters/poster.png" alt="2026 Bahar Müzisyen Seçmeleri" class="poster-image">
                 <div class="poster-badge">
                     <span class="badge-dot"></span>
-                    Başvurular Sonuçlandı
+                    Başvurular Açık
                 </div>
             </div>
-            <p class="poster-deadline">Son başvuru: 16 Şubat 2026, 23:59</p>
+            <p class="poster-deadline">Son başvuru tarihi yakında duyurulacaktır.</p>
         </div>
 
         <!-- Sağ: Başvuru Türü Seçimi + Sonuçları Gör -->
         <div class="katil-right-col">
             <div class="application-choice" id="applicationChoice">
                 <h3 class="choice-title">Hangi alandan başvurmak istiyorsunuz?</h3>
-                <p class="choice-subtitle">Dilerseniz her ikisinden de ayrı ayrı başvurabilirsiniz.</p>
-                
+                <p class="choice-subtitle">Dilerseniz birden fazla alandan ayrı ayrı başvurabilirsiniz.</p>
+
                 <div class="choice-cards">
                     <button class="choice-card" onclick="showForm('muzisyen')">
                         <div class="choice-icon">🎸</div>
@@ -483,14 +481,15 @@
                         <p>Şarkı söyleyerek kulübümüze katılmak isteyenler için</p>
                         <span class="choice-btn">Başvur →</span>
                     </button>
+                    <button class="choice-card" onclick="showForm('teknik')">
+                        <div class="choice-icon">🎧</div>
+                        <h4>Teknik Ekip Olarak Başvur</h4>
+                        <p>Ses, sahne ve ekipman işleriyle ilgilenmek isteyenler için</p>
+                        <span class="choice-btn">Başvur →</span>
+                    </button>
                 </div>
             </div>
 
-            <!-- Sonuçları Gör CTA -->
-            <div class="katil-results-cta">
-                <a href="sonuclar.html" class="btn btn-secondary poster-results">📋 Seçme Sonuçlarını Gör</a>
-                <p class="poster-deadline poster-deadline-accent">Seçmeler önümüzdeki dönemin başında tekrar açılacaktır.</p>
-            </div>
         </div>
     </div>
             <!-- MÜZİSYEN BAŞVURU FORMU -->
@@ -498,8 +497,8 @@
                 <button class="back-to-choice" onclick="showChoice()">← Geri Dön</button>
                 <div class="application-card">
                     <div class="application-header">
-                        <h2>🎸 2026 Bahar Dönemi Müzisyen Seçmeleri Başvuru Formu</h2>
-                        <p>Bu form Batı Müziği Kulübü'nde klasik müzik veya popüler müzik ekiplerinde müzisyen olarak yer almak isteyenlerin doldurması gereken formdur. 2025-2026 Bahar Dönemi için geçerlidir.</p>
+                        <h2>🎸 2026-2027 Güz Dönemi Müzisyen Seçmeleri Başvuru Formu</h2>
+                        <p>Bu form Batı Müziği Kulübü'nde klasik müzik veya popüler müzik ekiplerinde müzisyen olarak yer almak isteyenlerin doldurması gereken formdur. 2026-2027 Güz Dönemi için geçerlidir.</p>
                         <p style="margin-top: 1rem;">WhatsApp duyuru grubumuz için <a href="https://chat.whatsapp.com/IDWoQiUygIlAScxgggdvQ2?mode=gi_t" target="_blank" rel="noopener noreferrer">tıklayın</a></p>
                     </div>
 
@@ -927,8 +926,8 @@
                 <button class="back-to-choice" onclick="showChoice()">← Geri Dön</button>
                 <div class="application-card">
                     <div class="application-header">
-                        <h2>🎤 2026 Bahar Dönemi Vokal Seçmeleri Başvuru Formu</h2>
-                        <p>Bu form Batı Müziği Kulübü'nde vokal olarak yer almak isteyenlerin doldurması gereken formdur. 2025-2026 Bahar Dönemi için geçerlidir.</p>
+                        <h2>🎤 2026-2027 Güz Dönemi Vokal Seçmeleri Başvuru Formu</h2>
+                        <p>Bu form Batı Müziği Kulübü'nde vokal olarak yer almak isteyenlerin doldurması gereken formdur. 2026-2027 Güz Dönemi için geçerlidir.</p>
                         <p style="margin-top: 1rem;">WhatsApp duyuru grubumuz için <a href="https://chat.whatsapp.com/IDWoQiUygIlAScxgggdvQ2?mode=gi_t" target="_blank" rel="noopener noreferrer">tıklayın</a></p>
                     </div>
 
@@ -1275,6 +1274,258 @@
                     </form>
                 </div>
             </div>
+
+            <!-- TEKNİK EKİP BAŞVURU FORMU -->
+            <div class="application-container" id="teknikForm" style="display: none;">
+                <button class="back-to-choice" onclick="showChoice()">← Geri Dön</button>
+                <div class="application-card">
+                    <div class="application-header">
+                        <h2>🎧 2026-2027 Güz Dönemi Teknik Ekip Başvuru Formu</h2>
+                        <p>Bu form Batı Müziği Kulübü'nün teknik ekibinde (ses, sahne, ekipman) yer almak isteyenlerin doldurması gereken formdur. 2026-2027 Güz Dönemi için geçerlidir.</p>
+                        <p style="margin-top: 1rem;">WhatsApp duyuru grubumuz için <a href="https://chat.whatsapp.com/IDWoQiUygIlAScxgggdvQ2?mode=gi_t" target="_blank" rel="noopener noreferrer">tıklayın</a></p>
+                    </div>
+
+                    <div class="progress-steps" id="teknikProgressSteps">
+                        <div class="progress-step active" data-step="1"><span class="step-num">1</span> Kişisel Bilgiler</div>
+                        <div class="progress-step" data-step="2"><span class="step-num">2</span> Teknik Bilgiler</div>
+                        <div class="progress-step" data-step="3"><span class="step-num">3</span> Motivasyon</div>
+                        <div class="progress-step" data-step="4"><span class="step-num">4</span> Son</div>
+                    </div>
+
+                    <form id="teknikApplicationForm">
+                        <!-- Step 1: Kişisel Bilgiler -->
+                        <div class="form-step active" data-step="1">
+                            <h3 class="step-title">📋 Kişisel Bilgiler</h3>
+                            <p class="step-desc">Temel iletişim bilgilerinizi girin.</p>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Ad Soyad <span class="required">*</span></label>
+                                    <input type="text" name="fullName" required placeholder="Adınızı ve soyadınızı girin">
+                                    <small>Görüşme sırasında karışmaması adına tam isminizi yazınız.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefon Numarası <span class="required">*</span></label>
+                                    <input type="tel" name="phone" required placeholder="05XX XXX XX XX" inputmode="tel" pattern="^0?\s*5\d{2}[\s-]*\d{3}[\s-]*\d{2}[\s-]*\d{2}$" title="Telefon numarası 05xx xxx xx xx formatında olmalı (0 ile veya olmadan).">
+                                    <small>Size geri dönüş yapabilmemiz adına buna ihtiyacımız var.</small>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>E-posta <span class="required">*</span></label>
+                                    <input type="email" name="email" required placeholder="ornek@email.com">
+                                    <small>İTÜ mail adresinizden başka kullandığınız bir mail yazınız.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>İTÜ-Mail Adresiniz <span class="required">*</span></label>
+                                    <input type="email" name="ituMail" required placeholder="isim.soyisim@itu.edu.tr" pattern="^[^\\s@]+@itu\\.edu\\.tr$" title="Lütfen @itu.edu.tr uzantılı e-posta girin.">
+                                    <small>Sadece @itu.edu.tr uzantılı e-posta kabul edilir.</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Okuduğunuz Bölüm <span class="required">*</span></label>
+                                <select name="department" required>
+                                    <option value="">Bölümünüzü seçin...</option>
+                                    <option>Bilgisayar Mühendisliği</option>
+                                    <option>Bilişim Sistemleri Mühendisliği (UOLP-SUNY)</option>
+                                    <option>Biyomühendislik (UOLP-MSU)</option>
+                                    <option>Cevher Hazırlama Mühendisliği</option>
+                                    <option>Çevre Mühendisliği</option>
+                                    <option>Deniz Ulaştırma İşletme Mühendisliği</option>
+                                    <option>Deniz Ulaştırma İşletme Mühendisliği (UOLP-SUNY)</option>
+                                    <option>Ekonomi</option>
+                                    <option>Ekonomi (UOLP-Saraybosna)</option>
+                                    <option>Elektrik Mühendisliği</option>
+                                    <option>Elektronik ve Haberleşme Mühendisliği</option>
+                                    <option>Elektronik ve Haberleşme Mühendisliği (UOLP-Saraybosna)</option>
+                                    <option>Elektronik ve Haberleşme Mühendisliği (UOLP-NTIJ)</option>
+                                    <option>Endüstri Mühendisliği</option>
+                                    <option>Endüstri Mühendisliği (UOLP-SIUE)</option>
+                                    <option>Endüstri Ürünleri Tasarımı</option>
+                                    <option>Fizik Mühendisliği</option>
+                                    <option>Gemi İnşaatı ve Gemi Makineleri Mühendisliği</option>
+                                    <option>Gemi Makinaları İşletme Mühendisliği</option>
+                                    <option>Gemi Makinaları İşletme Mühendisliği (UOLP-SUNY)</option>
+                                    <option>Gemi ve Deniz Teknolojisi Mühendisliği</option>
+                                    <option>Geomatik Mühendisliği</option>
+                                    <option>Gıda Mühendisliği</option>
+                                    <option>İç Mimarlık</option>
+                                    <option>İmalat Mühendisliği</option>
+                                    <option>İnşaat Mühendisliği</option>
+                                    <option>İnşaat Mühendisliği (UOLP-SUNY)</option>
+                                    <option>İnşaat Mühendisliği (UOLP-Azerbaycan)</option>
+                                    <option>İşletme (UOLP-SUNY)</option>
+                                    <option>İşletme Mühendisliği</option>
+                                    <option>Jeofizik Mühendisliği</option>
+                                    <option>Jeoloji Mühendisliği</option>
+                                    <option>Kimya</option>
+                                    <option>Kimya Mühendisliği</option>
+                                    <option>Konservatuvar / Çalgı</option>
+                                    <option>Konservatuvar / Kompozisyon</option>
+                                    <option>Konservatuvar / Müzik Teknolojileri</option>
+                                    <option>Konservatuvar / Müzik Teorisi</option>
+                                    <option>Konservatuvar / Müzikoloji</option>
+                                    <option>Konservatuvar / Ses Eğitimi</option>
+                                    <option>Konservatuvar / Türk Halk Oyunları</option>
+                                    <option>Kontrol ve Otomasyon Mühendisliği</option>
+                                    <option>Maden Mühendisliği</option>
+                                    <option>Makina Mühendisliği</option>
+                                    <option>Makina Mühendisliği (UOLP-Saraybosna)</option>
+                                    <option>Matematik Mühendisliği</option>
+                                    <option>Metalurji ve Malzeme Mühendisliği</option>
+                                    <option>Meteoroloji Mühendisliği</option>
+                                    <option>Mimarlık</option>
+                                    <option>Mimarlık (UOLP-Saraybosna)</option>
+                                    <option>Moleküler Biyoloji ve Genetik</option>
+                                    <option>Moda Tasarımı (UOLP)</option>
+                                    <option>Petrol ve Doğalgaz Mühendisliği</option>
+                                    <option>Peyzaj Mimarlığı</option>
+                                    <option>Şehir ve Bölge Planlama</option>
+                                    <option>Tekstil Mühendisliği</option>
+                                    <option>Tekstil Geliştirme ve Pazarlama (UOLP)</option>
+                                    <option>Uçak Mühendisliği</option>
+                                    <option>Uzay Mühendisliği</option>
+                                    <option>Yapay Zeka ve Veri Mühendisliği</option>
+                                    <option>Yüksek lisans öğrencisiyim</option>
+                                    <option>Bunların hiçbiri bana uymuyor</option>
+                                </select>
+                                <small>Hazırlık öğrencileri de okuyacağı bölümü seçmelidir.</small>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Teknik Bilgiler -->
+                        <div class="form-step" data-step="2">
+                            <h3 class="step-title">🔊 Teknik Bilgiler</h3>
+                            <p class="step-desc">Teknik bilgi ve deneyimlerinizden bahsedin.</p>
+
+                            <div class="form-group">
+                                <label>Müzikal geçmişiniz var mı? Varsa kısaca anlatın</label>
+                                <textarea name="musicBackground" placeholder="Çalgı, koro, prodüksiyon vb. deneyimlerinizi yazın..."></textarea>
+                            </div>
+
+                            <div class="range-group">
+                                <label>Mikser kullanma bilgi seviyenizi puanlayın</label>
+                                <div class="range-labels"><span>Hiç bilmiyorum</span><span>Rahatça kullanırım</span></div>
+                                <input type="range" name="mixerSkill" min="1" max="10" value="5">
+                                <div class="range-value">5</div>
+                            </div>
+
+                            <div class="range-group">
+                                <label>Sahne kurulumu becerinizi puanlayın (kablo, hoparlör, mikrofon yerleşimi vb.)</label>
+                                <div class="range-labels"><span>Hiç bilgim yok</span><span>Çok iyiyim</span></div>
+                                <input type="range" name="stageSetupSkill" min="1" max="10" value="5">
+                                <div class="range-value">5</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Işık sistemi hakkında bilginiz var mı? <span class="required">*</span></label>
+                                <select name="lightingKnowledge" required>
+                                    <option value="">Seçin...</option>
+                                    <option>Evet</option>
+                                    <option>Biraz</option>
+                                    <option>Hayır</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Hangi müzik yazılımlarını/programlarını kullanmayı biliyorsunuz?</label>
+                                <textarea name="software" placeholder="Ableton, FL Studio, Logic, Audacity vb."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Daha önce ses/sound işlerinde deneyiminiz oldu mu? Olduysa anlatın</label>
+                                <textarea name="soundExperience" placeholder="Canlı etkinlik mi, kayıt/stüdyo işi mi olduğunu belirtin..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Motivasyon & Uygunluk -->
+                        <div class="form-step" data-step="3">
+                            <h3 class="step-title">🤝 Motivasyon &amp; Uygunluk</h3>
+                            <p class="step-desc">Son birkaç soru ve başvurunuzu tamamlayın.</p>
+
+                            <div class="form-group">
+                                <label>Neden teknik ekipte olmak istiyorsunuz? <span class="required">*</span></label>
+                                <textarea name="motivation" required placeholder="Motivasyonunuzu ve beklentilerinizi yazın..."></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Kulüp için haftada ne kadar zaman ayırabilirsiniz? <span class="required">*</span></label>
+                                    <select name="weeklyTime" required>
+                                        <option value="">Seçin...</option>
+                                        <option>Haftada birkaç saat</option>
+                                        <option>Haftada 3-5 saat</option>
+                                        <option>Haftada 5+ saat</option>
+                                        <option>Etkinlik dönemlerinde yoğun, diğer zamanlarda esnek</option>
+                                        <option>Ne zaman gerekirse müsaitim</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Kulüp ve provalara ayırabileceğiniz zamanı nasıl değerlendirirsiniz? <span class="required">*</span></label>
+                                    <select name="rehearsalCommitment" required>
+                                        <option value="">Seçin...</option>
+                                        <option>Elzem durumlar dışında düzenli ve kulübün beklentisine tamamen uygun şekilde</option>
+                                        <option>En fazla haftada bir kez</option>
+                                        <option>Sadece konser dönemi katılırım</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Akşam ve hafta sonu etkinliklerinde bulunabilir misiniz? <span class="required">*</span></label>
+                                    <select name="eveningAvailability" required>
+                                        <option value="">Seçin...</option>
+                                        <option>Evet</option>
+                                        <option>Hayır</option>
+                                        <option>Duruma göre</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Kendi ekipmanınız var mı?</label>
+                                    <input type="text" name="ownEquipment" placeholder="Kulaklık, ses kartı, laptop vb.">
+                                    <small>Opsiyonel — yoksa boş bırakabilirsiniz.</small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Step 4: Son -->
+                        <div class="form-step" data-step="4">
+                            <h3 class="step-title">✅ Son Olarak</h3>
+                            <p class="step-desc">Başvurunuzu tamamlamadan önce son bilgiler.</p>
+
+                            <div class="info-box">
+                                <h4>📋 Değerlendirme Süreci</h4>
+                                <p>Formu dolduran adaylarla tanışma görüşmesi yapılacaktır. Başvurular yönetim kurulumuzun değerlendirmesinden sonra sonuçlandırılacaktır.</p>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>📸 Bizi Takip Edin</h4>
+                                <p>Gelişmelerden haberdar olmak için kulübümüzün Instagram hesabını takip etmenizi tavsiye ederiz.</p>
+                                <p style="margin-top: 0.5rem;"><a href="https://www.instagram.com/itubmk" target="_blank" rel="noopener noreferrer">@itubmk</a></p>
+                            </div>
+
+                            <div class="info-box">
+                                <h4>🤝 Görüşme Bilgisi</h4>
+                                <p>Tanışma görüşmesinin detayları size e-posta ve telefon üzerinden iletilecektir.</p>
+                            </div>
+
+                            <div class="info-box" style="background: rgba(196, 217, 74, 0.15); border-color: rgba(196, 217, 74, 0.4);">
+                                <h4 style="color: #8a9a30;">🔒 Gizlilik</h4>
+                                <p>Verdiğiniz bütün bilgiler tarafımızca saklı tutulmaktadır.</p>
+                            </div>
+
+                            <p class="submit-reminder">⚠️ Başvuruyu tamamlamak için "Gönder" butonuna basmayı unutmayın.</p>
+                        </div>
+
+                        <div class="form-nav">
+                            <button type="button" class="btn-outline" id="teknikPrevBtn" style="visibility: hidden;">← Geri</button>
+                            <button type="button" class="btn btn-primary" id="teknikNextBtn">İleri →</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1478,28 +1729,32 @@
 
         // Application Form Choice Functions
         function showForm(type) {
-            document.getElementById('applicationChoice').style.display = 'none';
-            if (type === 'muzisyen') {
-                document.getElementById('muzisyenForm').style.display = 'block';
-                document.getElementById('vokalForm').style.display = 'none';
-            } else {
-                document.getElementById('vokalForm').style.display = 'block';
-                document.getElementById('muzisyenForm').style.display = 'none';
-            }
+            document.getElementById('katilGrid').style.display = 'none';
+            const formIds = { muzisyen: 'muzisyenForm', vokal: 'vokalForm', teknik: 'teknikForm' };
+            Object.entries(formIds).forEach(([key, id]) => {
+                document.getElementById(id).style.display = key === type ? 'block' : 'none';
+            });
+            document.getElementById('katil').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function showChoice() {
-            document.getElementById('applicationChoice').style.display = 'block';
+            document.getElementById('katilGrid').style.display = '';
             document.getElementById('muzisyenForm').style.display = 'none';
             document.getElementById('vokalForm').style.display = 'none';
+            document.getElementById('teknikForm').style.display = 'none';
             // Reset forms
             muzisyenCurrentStep = 1;
             vokalCurrentStep = 1;
+            teknikCurrentStep = 1;
             updateMuzisyenForm();
             updateVokalForm();
+            updateTeknikForm();
         }
 
         // Müzisyen Form Handler
+        // NOT: Yeni dönem için muzisyen-form-apps-script/Code.gs'i deploy edip
+        // URL'yi güncelleyin. Aşağıdaki URL bir önceki dönemin tablosuna yazar.
+        const MUZISYEN_FORM_URL = 'https://script.google.com/macros/s/AKfycbxckAhOfmCFmA41PpzVRZSfCga6LXExNfHCLNLF5GWqWZW69i68ntukzGss9hz-t_Bo/exec';
         let muzisyenCurrentStep = 1;
         const muzisyenTotalSteps = 5;
         const muzisyenForm = document.getElementById('applicationForm');
@@ -1706,7 +1961,7 @@
                     };
                     
                     try {
-                        await submitJson('https://script.google.com/macros/s/AKfycbxckAhOfmCFmA41PpzVRZSfCga6LXExNfHCLNLF5GWqWZW69i68ntukzGss9hz-t_Bo/exec', data);
+                        await submitJson(MUZISYEN_FORM_URL, data);
                         alert('🎸 Müzisyen başvurunuz alındı! Teşekkür ederiz.'); 
                         muzisyenForm.reset(); 
                         muzisyenCurrentStep = 1; 
@@ -1720,6 +1975,9 @@
         });
 
         // Vokal Form Handler
+        // NOT: Yeni dönem için vokal-form-apps-script/Code.gs'i deploy edip
+        // URL'yi güncelleyin. Aşağıdaki URL bir önceki dönemin tablosuna yazar.
+        const VOKAL_FORM_URL = 'https://script.google.com/macros/s/AKfycbxGWZV3DFE-ZgnF3NSyIbfR13kqWZMy9n0yDHqjkbg0ONHVMZ_qbhXKNc0_ijbYm0Br/exec';
         let vokalCurrentStep = 1;
         const vokalTotalSteps = 5;
         const vokalForm = document.getElementById('vokalApplicationForm');
@@ -1786,11 +2044,92 @@
                     };
                     
                     try {
-                        await submitJson('https://script.google.com/macros/s/AKfycbxGWZV3DFE-ZgnF3NSyIbfR13kqWZMy9n0yDHqjkbg0ONHVMZ_qbhXKNc0_ijbYm0Br/exec', data);
+                        await submitJson(VOKAL_FORM_URL, data);
                         alert('🎤 Vokal başvurunuz alındı! Teşekkür ederiz.'); 
                         vokalForm.reset(); 
                         vokalCurrentStep = 1; 
                         updateVokalForm(); 
+                        showChoice();
+                    } catch (error) {
+                        alert('⚠️ Başvuru gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+                    }
+                }
+            }
+        });
+
+        // Teknik Ekip Form Handler
+        // TODO: Teknik ekip Apps Script'ini (teknik-form-apps-script/Code.gs) deploy edip
+        // aşağıdaki URL'yi web app URL'si ile değiştirin.
+        const TEKNIK_FORM_URL = 'APPS_SCRIPT_URL_BURAYA';
+        let teknikCurrentStep = 1;
+        const teknikTotalSteps = 4;
+        const teknikForm = document.getElementById('teknikApplicationForm');
+        const teknikPrevBtn = document.getElementById('teknikPrevBtn');
+        const teknikNextBtn = document.getElementById('teknikNextBtn');
+        const teknikProgressSteps = document.querySelectorAll('#teknikForm .progress-step');
+        const teknikFormSteps = document.querySelectorAll('#teknikForm .form-step');
+
+        function validateTeknikStep(step) {
+            const currentStepEl = document.querySelector('#teknikForm .form-step[data-step="' + step + '"]');
+            if (!currentStepEl) return true;
+            return validateStep(currentStepEl);
+        }
+
+        function updateTeknikForm() {
+            teknikFormSteps.forEach((step, i) => {
+                step.classList.toggle('active', i + 1 === teknikCurrentStep);
+            });
+            teknikProgressSteps.forEach((step, i) => {
+                step.classList.remove('active', 'completed');
+                if (i + 1 === teknikCurrentStep) step.classList.add('active');
+                else if (i + 1 < teknikCurrentStep) step.classList.add('completed');
+            });
+            teknikPrevBtn.style.visibility = teknikCurrentStep === 1 ? 'hidden' : 'visible';
+            teknikNextBtn.textContent = teknikCurrentStep === teknikTotalSteps ? 'Gönder ✓' : 'İleri →';
+        }
+
+        teknikPrevBtn.addEventListener('click', () => {
+            if (teknikCurrentStep > 1) { teknikCurrentStep--; updateTeknikForm(); }
+        });
+
+        teknikNextBtn.addEventListener('click', async () => {
+            if (teknikCurrentStep < teknikTotalSteps) {
+                if (validateTeknikStep(teknikCurrentStep)) {
+                    teknikCurrentStep++; updateTeknikForm(); scrollFormToTop(teknikForm);
+                }
+            } else {
+                if (validateTeknikStep(teknikCurrentStep)) {
+                    if (!TEKNIK_FORM_URL.startsWith('https://')) {
+                        alert('⚠️ Teknik ekip başvuru formu henüz aktif değil. Lütfen daha sonra tekrar deneyin.');
+                        return;
+                    }
+                    // Form verilerini topla
+                    const formData = new FormData(teknikForm);
+                    const data = {
+                        fullName: formData.get('fullName'),
+                        phone: formData.get('phone'),
+                        email: formData.get('email'),
+                        ituMail: formData.get('ituMail'),
+                        department: formData.get('department'),
+                        musicBackground: formData.get('musicBackground') || '',
+                        mixerSkill: formData.get('mixerSkill'),
+                        stageSetupSkill: formData.get('stageSetupSkill'),
+                        lightingKnowledge: formData.get('lightingKnowledge'),
+                        software: formData.get('software') || '',
+                        soundExperience: formData.get('soundExperience') || '',
+                        motivation: formData.get('motivation'),
+                        weeklyTime: formData.get('weeklyTime'),
+                        rehearsalCommitment: formData.get('rehearsalCommitment'),
+                        eveningAvailability: formData.get('eveningAvailability'),
+                        ownEquipment: formData.get('ownEquipment') || ''
+                    };
+
+                    try {
+                        await submitJson(TEKNIK_FORM_URL, data);
+                        alert('🎧 Teknik ekip başvurunuz alındı! Teşekkür ederiz.');
+                        teknikForm.reset();
+                        teknikCurrentStep = 1;
+                        updateTeknikForm();
                         showChoice();
                     } catch (error) {
                         alert('⚠️ Başvuru gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
