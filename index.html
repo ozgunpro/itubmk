@@ -70,7 +70,7 @@
                             <span class="badge-dot"></span>
                             Başvurular Açık
                         </span>
-                        <img src="assets/posters/poster.png" alt="Seçme Başvuru Afişi" class="poster-image">
+                        <img src="assets/posters/basvuru.jpeg" alt="Güz Dönemi Seçmeleri Başvuru Afişi" class="poster-image">
                     </div>
                 </a>
             </div>
@@ -453,7 +453,7 @@
         <div class="katil-poster-col">
             <div class="poster-card">
                 <div class="poster-glow"></div>
-                <img src="assets/posters/poster.png" alt="2026 Bahar Müzisyen Seçmeleri" class="poster-image">
+                <img src="assets/posters/basvuru.jpeg" alt="Güz Dönemi Seçmeleri Başvuru Afişi" class="poster-image">
                 <div class="poster-badge">
                     <span class="badge-dot"></span>
                     Başvurular Açık
@@ -1751,10 +1751,7 @@
             updateTeknikForm();
         }
 
-        // Müzisyen Form Handler
-        // NOT: Yeni dönem için muzisyen-form-apps-script/Code.gs'i deploy edip
-        // URL'yi güncelleyin. Aşağıdaki URL bir önceki dönemin tablosuna yazar.
-        const MUZISYEN_FORM_URL = 'https://script.google.com/macros/s/AKfycbxckAhOfmCFmA41PpzVRZSfCga6LXExNfHCLNLF5GWqWZW69i68ntukzGss9hz-t_Bo/exec';
+        const MUZISYEN_FORM_URL = 'https://script.google.com/macros/s/AKfycbxQCjE0O--fdb3FUmb-S4UT5g1J4FuN6zkRqqViqHYpGaZotry_eFHLq4fxglnA-ANA/exec';
         let muzisyenCurrentStep = 1;
         const muzisyenTotalSteps = 5;
         const muzisyenForm = document.getElementById('applicationForm');
@@ -1919,6 +1916,14 @@
             container.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
+        function setFormSubmitting(nextBtn, prevBtn, submitting) {
+            nextBtn.disabled = submitting;
+            prevBtn.disabled = submitting;
+            if (submitting) {
+                nextBtn.innerHTML = '<span class="btn-spinner"></span>Gönderiliyor...';
+            }
+        }
+
         muzisyenPrevBtn.addEventListener('click', () => {
             if (muzisyenCurrentStep > 1) { muzisyenCurrentStep--; updateMuzisyenForm(); }
         });
@@ -1960,24 +1965,25 @@
                         motivation: formData.get('motivation')
                     };
                     
+                    setFormSubmitting(muzisyenNextBtn, muzisyenPrevBtn, true);
                     try {
                         await submitJson(MUZISYEN_FORM_URL, data);
-                        alert('🎸 Müzisyen başvurunuz alındı! Teşekkür ederiz.'); 
-                        muzisyenForm.reset(); 
-                        muzisyenCurrentStep = 1; 
-                        updateMuzisyenForm(); 
+                        alert('🎸 Müzisyen başvurunuz alındı! Teşekkür ederiz.');
+                        muzisyenForm.reset();
+                        muzisyenCurrentStep = 1;
                         showChoice();
                     } catch (error) {
                         alert('⚠️ Başvuru gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+                    } finally {
+                        setFormSubmitting(muzisyenNextBtn, muzisyenPrevBtn, false);
+                        updateMuzisyenForm();
                     }
                 }
             }
         });
 
         // Vokal Form Handler
-        // NOT: Yeni dönem için vokal-form-apps-script/Code.gs'i deploy edip
-        // URL'yi güncelleyin. Aşağıdaki URL bir önceki dönemin tablosuna yazar.
-        const VOKAL_FORM_URL = 'https://script.google.com/macros/s/AKfycbxGWZV3DFE-ZgnF3NSyIbfR13kqWZMy9n0yDHqjkbg0ONHVMZ_qbhXKNc0_ijbYm0Br/exec';
+        const VOKAL_FORM_URL = 'https://script.google.com/macros/s/AKfycbzEifuQIj2KP22295gDUmtTBeiaSUHlQfCewElme2ejUBj1jx7z3PnnLIVPp96KFw61yg/exec';
         let vokalCurrentStep = 1;
         const vokalTotalSteps = 5;
         const vokalForm = document.getElementById('vokalApplicationForm');
@@ -2043,24 +2049,25 @@
                         motivation: formData.get('motivation')
                     };
                     
+                    setFormSubmitting(vokalNextBtn, vokalPrevBtn, true);
                     try {
                         await submitJson(VOKAL_FORM_URL, data);
-                        alert('🎤 Vokal başvurunuz alındı! Teşekkür ederiz.'); 
-                        vokalForm.reset(); 
-                        vokalCurrentStep = 1; 
-                        updateVokalForm(); 
+                        alert('🎤 Vokal başvurunuz alındı! Teşekkür ederiz.');
+                        vokalForm.reset();
+                        vokalCurrentStep = 1;
                         showChoice();
                     } catch (error) {
                         alert('⚠️ Başvuru gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+                    } finally {
+                        setFormSubmitting(vokalNextBtn, vokalPrevBtn, false);
+                        updateVokalForm();
                     }
                 }
             }
         });
 
         // Teknik Ekip Form Handler
-        // TODO: Teknik ekip Apps Script'ini (teknik-form-apps-script/Code.gs) deploy edip
-        // aşağıdaki URL'yi web app URL'si ile değiştirin.
-        const TEKNIK_FORM_URL = 'APPS_SCRIPT_URL_BURAYA';
+        const TEKNIK_FORM_URL = 'https://script.google.com/macros/s/AKfycbzvfF72x_fuomALSNMOm2hR1Y04MC-Kpef7PMQ7MBBskRrwfTr3C3JMUoZMZf0eqoevNw/exec';
         let teknikCurrentStep = 1;
         const teknikTotalSteps = 4;
         const teknikForm = document.getElementById('teknikApplicationForm');
@@ -2124,15 +2131,18 @@
                         ownEquipment: formData.get('ownEquipment') || ''
                     };
 
+                    setFormSubmitting(teknikNextBtn, teknikPrevBtn, true);
                     try {
                         await submitJson(TEKNIK_FORM_URL, data);
                         alert('🎧 Teknik ekip başvurunuz alındı! Teşekkür ederiz.');
                         teknikForm.reset();
                         teknikCurrentStep = 1;
-                        updateTeknikForm();
                         showChoice();
                     } catch (error) {
                         alert('⚠️ Başvuru gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+                    } finally {
+                        setFormSubmitting(teknikNextBtn, teknikPrevBtn, false);
+                        updateTeknikForm();
                     }
                 }
             }
