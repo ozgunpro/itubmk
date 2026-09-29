@@ -1157,7 +1157,7 @@ section { padding: 7rem 2rem; }
 
 .team-avatar--iclal img {
     object-position: center 42%;
-    transform: scale(1.8);
+    transform: translateX(-4%) scale(2);
     transform-origin: 70% center;
 }
 
