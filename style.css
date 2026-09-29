@@ -1155,6 +1155,12 @@ section { padding: 7rem 2rem; }
     display: block;
 }
 
+.team-avatar--iclal img {
+    object-position: center 42%;
+    transform: scale(1.8);
+    transform-origin: 70% center;
+}
+
 .team-card h3 {
     font-family: 'Syne', sans-serif;
     font-size: 1.2rem;
