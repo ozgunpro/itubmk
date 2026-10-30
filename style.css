@@ -531,6 +531,16 @@ section { padding: 7rem 2rem; }
     animation: pulse 1.5s ease-in-out infinite;
 }
 
+.poster-badge.poster-badge-closed {
+    background: #666;
+    box-shadow: none;
+    animation: none;
+}
+
+.poster-badge-closed .badge-dot {
+    animation: none;
+}
+
 .poster-cta {
     margin-top: 1.5rem;
     width: 100%;

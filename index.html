@@ -68,7 +68,7 @@
                         <div class="poster-glow"></div>
                         <span class="poster-badge">
                             <span class="badge-dot"></span>
-                            Başvurular Açık
+                            <span data-application-status>Başvurular Açık</span>
                         </span>
                         <img src="assets/posters/basvuru.jpeg" alt="Güz Dönemi Seçmeleri Başvuru Afişi" class="poster-image">
                     </div>
@@ -444,7 +444,7 @@
             <div class="section-header">
                 <div class="section-tag">🎸 Başvuru</div>
                 <h2 class="section-title">Bize Katıl</h2>
-                <p class="section-desc">2026-2027 Güz Dönemi Seçmeleri için başvurunu yap!</p>
+                <p class="section-desc" id="applicationStatus" role="status">2026-2027 Güz Dönemi Seçmeleri için başvurunu yap!</p>
             </div>
 
     <!-- Afiş + Başvuru Seçenekleri Yan Yana -->
@@ -456,10 +456,10 @@
                 <img src="assets/posters/basvuru.jpeg" alt="Güz Dönemi Seçmeleri Başvuru Afişi" class="poster-image" loading="lazy">
                 <div class="poster-badge">
                     <span class="badge-dot"></span>
-                    Başvurular Açık
+                    <span data-application-status>Başvurular Açık</span>
                 </div>
             </div>
-            <p class="poster-deadline">Son başvuru tarihi yakında duyurulacaktır.</p>
+            <p class="poster-deadline">Son başvuru: <time datetime="2026-10-31T00:00:00+03:00">31 Ekim 2026, 00.00</time> (Türkiye saati).<br>30 Ekim'i 31 Ekim'e bağlayan gece.</p>
         </div>
 
         <!-- Sağ: Başvuru Türü Seçimi + Sonuçları Gör -->
@@ -1712,13 +1712,46 @@
             });
         });
 
-        // Applications closed state
-        const applicationsClosed = document.querySelector('#katil')?.classList.contains('applications-closed');
-        if (applicationsClosed) {
+        // Midnight at the start of 31 October, in Europe/Istanbul (UTC+03:00).
+        const APPLICATION_DEADLINE = Date.parse('2026-10-31T00:00:00+03:00');
+        const applicationSection = document.getElementById('katil');
+        let applicationDeadlineTimer;
+
+        function applicationsAreClosed() {
+            return Date.now() >= APPLICATION_DEADLINE || applicationSection.classList.contains('applications-closed');
+        }
+
+        function updateApplicationAvailability() {
+            clearTimeout(applicationDeadlineTimer);
+            if (!applicationsAreClosed()) {
+                applicationDeadlineTimer = setTimeout(updateApplicationAvailability,
+                    Math.min(APPLICATION_DEADLINE - Date.now(), 2147483647));
+                return;
+            }
+            applicationSection.classList.add('applications-closed');
+            document.getElementById('applicationStatus').textContent = '2026-2027 Güz Dönemi başvuruları sona ermiştir. İlginiz için teşekkür ederiz!';
+            document.querySelectorAll('[data-application-status]').forEach(el => {
+                el.textContent = 'Başvurular Kapalı';
+                el.closest('.poster-badge').classList.add('poster-badge-closed');
+            });
+            document.getElementById('katilGrid').style.display = '';
+            document.querySelectorAll('#katil .application-container').forEach(el => {
+                el.style.display = 'none';
+            });
             document.querySelectorAll('#katil input, #katil select, #katil textarea, #katil button').forEach(el => {
                 el.disabled = true;
                 el.setAttribute('aria-disabled', 'true');
             });
+        }
+
+        updateApplicationAvailability();
+        window.addEventListener('focus', updateApplicationAvailability);
+        document.addEventListener('visibilitychange', updateApplicationAvailability);
+
+        function requireOpenApplications() {
+            if (!applicationsAreClosed()) return true;
+            updateApplicationAvailability();
+            return false;
         }
 
         // Mobile menu
@@ -1729,6 +1762,7 @@
 
         // Application Form Choice Functions
         function showForm(type) {
+            if (!requireOpenApplications()) return;
             document.getElementById('katilGrid').style.display = 'none';
             const formIds = { muzisyen: 'muzisyenForm', vokal: 'vokalForm', teknik: 'teknikForm' };
             Object.entries(formIds).forEach(([key, id]) => {
@@ -1917,8 +1951,8 @@
         }
 
         function setFormSubmitting(nextBtn, prevBtn, submitting) {
-            nextBtn.disabled = submitting;
-            prevBtn.disabled = submitting;
+            nextBtn.disabled = submitting || applicationsAreClosed();
+            prevBtn.disabled = submitting || applicationsAreClosed();
             if (submitting) {
                 nextBtn.innerHTML = '<span class="btn-spinner"></span>Gönderiliyor...';
             }
@@ -1929,6 +1963,7 @@
         });
 
         muzisyenNextBtn.addEventListener('click', async () => {
+            if (!requireOpenApplications()) return;
             if (muzisyenCurrentStep === 2) { // Bilgilendirme sayfası - validasyon yok
                 muzisyenCurrentStep++; updateMuzisyenForm(); scrollFormToTop(muzisyenForm);
             } else if (muzisyenCurrentStep < muzisyenTotalSteps) {
@@ -2016,6 +2051,7 @@
         });
 
         vokalNextBtn.addEventListener('click', async () => {
+            if (!requireOpenApplications()) return;
             if (vokalCurrentStep === 2) { // Bilgilendirme sayfası - validasyon yok
                 vokalCurrentStep++; updateVokalForm(); scrollFormToTop(vokalForm);
             } else if (vokalCurrentStep < vokalTotalSteps) {
@@ -2100,6 +2136,7 @@
         });
 
         teknikNextBtn.addEventListener('click', async () => {
+            if (!requireOpenApplications()) return;
             if (teknikCurrentStep < teknikTotalSteps) {
                 if (validateTeknikStep(teknikCurrentStep)) {
                     teknikCurrentStep++; updateTeknikForm(); scrollFormToTop(teknikForm);
